@@ -1,0 +1,13 @@
+﻿<?xml version ="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>ApplicationPlugin</Name>
+		<Assembly>RvtRigging.dll</Assembly>
+		<AddInId>
+			F580AA3C-2D53-4B70-9CD1-4BE01F6A87FD
+		</AddInId>
+		<FullClassName>RvtRigging.ExternalApplication</FullClassName>
+		<VendorId>com.jtpac</VendorId>
+		<VendorDescription>Entertainment BIM Solutions</VendorDescription>
+	</AddIn>
+</RevitAddIns>

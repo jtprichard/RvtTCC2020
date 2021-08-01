@@ -237,3 +237,11 @@ C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\RvtRigging\bin\Debug\zh-CN\A
 C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\RvtRigging\bin\Debug\zh-TW\AdWindows.resources.dll
 C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.csproj.CopyComplete
 D:\Dropbox (Personal)\Coding\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.csproj.AssemblyReference.cache
+D:\Repos\TCC\RvtTCC2020\RvtRigging\bin\Debug\RvtRigging.addin
+D:\Repos\TCC\RvtTCC2020\RvtRigging\bin\Debug\RvtRigging.dll
+D:\Repos\TCC\RvtTCC2020\RvtRigging\bin\Debug\RvtRigging.pdb
+D:\Repos\TCC\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.csproj.AssemblyReference.cache
+D:\Repos\TCC\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.g.resources
+D:\Repos\TCC\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.csproj.CoreCompileInputs.cache
+D:\Repos\TCC\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.dll
+D:\Repos\TCC\RvtTCC2020\RvtRigging\obj\Debug\RvtRigging.pdb
