@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+
+  <AddIn Type="Command">
+    <Name>DMU Circuit Label Updater</Name>
+    <Assembly>IUpdateRvtElec.dll</Assembly>
+    <FullClassName>IUpdateRvtElec.CmdCircuitLabelUpdater</FullClassName>
+    <ClientId>77128A86-8102-4605-B2F9-A1939D193A00</ClientId>
+    <VendorId>com.jtpac</VendorId>
+    <VendorDescription>Entertainment BIM Solutions</VendorDescription>
+  </AddIn>
+</RevitAddIns>

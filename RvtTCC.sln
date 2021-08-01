@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtElectrical", "RvtElectrical\RvtElectrical.csproj", "{81A33D2C-A97F-4346-95BA-4C628D44B08B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtRigging", "RvtRigging\RvtRigging.csproj", "{3029352E-26C1-43C6-8989-C71260421B48}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81A33D2C-A97F-4346-95BA-4C628D44B08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A33D2C-A97F-4346-95BA-4C628D44B08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A33D2C-A97F-4346-95BA-4C628D44B08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A33D2C-A97F-4346-95BA-4C628D44B08B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3029352E-26C1-43C6-8989-C71260421B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3029352E-26C1-43C6-8989-C71260421B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3029352E-26C1-43C6-8989-C71260421B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3029352E-26C1-43C6-8989-C71260421B48}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {215B6F57-F42E-45E0-9194-DB55A05A40E4}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,6 @@
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\bin\Release\IUpdateRvtElec.dll
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\bin\Release\IUpdateRvtElec.pdb
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\obj\Release\IUpdateRvtElec.csprojAssemblyReference.cache
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\obj\Release\IUpdateRvtElec.csproj.CoreCompileInputs.cache
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\obj\Release\IUpdateRvtElec.dll
+C:\Users\jpric\Dropbox (Personal)\Coding\RvtTCC2020\IUpdateRvtElec\obj\Release\IUpdateRvtElec.pdb

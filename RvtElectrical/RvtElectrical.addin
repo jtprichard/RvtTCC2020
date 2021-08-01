@@ -1,0 +1,26 @@
+﻿<?xml version ="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+	<AddIn Type ="Command">
+		<Name>RvtElectrical</Name>
+		<Assembly>RvtElectrical.dll</Assembly>
+		<AddInId>
+			9DBCA790-A535-47A2-99B8-5095B4CC7485
+		</AddInId>
+		<FullClassName>RvtElectrical.GetElementId3</FullClassName>
+		<Text>GetElementId3</Text>
+		<Description>Get the Id from an element</Description>
+		<VendorId>com.jtpac</VendorId>
+		<VendorDescription>Entertainment BIM Solutions</VendorDescription>
+		<VisibilityMode>NotVisibleWhenNoActiveDocument</VisibilityMode>
+	</AddIn>
+	<AddIn Type="Application">
+		<Name>ApplicationPlugin</Name>
+		<Assembly>RvtElectrical.dll</Assembly>
+		<AddInId>
+			A3C14E35-A6FF-4182-ADE6-57653ECABFEB
+		</AddInId>
+		<FullClassName>RvtElectrical.ExternalApplication</FullClassName>
+		<VendorId>com.jtpac</VendorId>
+		<VendorDescription>Entertainment BIM Solutions</VendorDescription>
+	</AddIn>
+</RevitAddIns>

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81A33D2C-A97F-4346-95BA-4C628D44B08B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RvtElectrical</RootNamespace>
+    <AssemblyName>RvtElectrical</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>RvtElectrical.addin</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RevitAPI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2020\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2020\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AvailabilityFam.cs" />
+    <Compile Include="AvailabilityProj.cs" />
+    <Compile Include="CmdRenumberBoxes.cs" />
+    <Compile Include="CmdBlank.cs" />
+    <Compile Include="CmdCreateFaceplateSchedules.cs" />
+    <Compile Include="CmdTests.cs" />
+    <Compile Include="CmdCreateConduitLow.cs" />
+    <Compile Include="CmdCreateConduitMedium.cs" />
+    <Compile Include="CmdCreateConduitHigh.cs" />
+    <Compile Include="CmdCreateConduitLine.cs" />
+    <Compile Include="CmdCreateConduitOther.cs" />
+    <Compile Include="CmdToggleCircuitLabelButton.cs" />
+    <Compile Include="CmdToggleAutoNumberBoxButton.cs" />
+    <Compile Include="Conduits.cs" />
+    <Compile Include="IUAutoNumberBox.cs" />
+    <Compile Include="IUDuplicateBox.cs" />
+    <Compile Include="IUCircuitLabel.cs" />
+    <None Include="CmdCircuitLabelUpdater.cs" />
+    <Compile Include="CmdToggleDuplicateButton.cs" />
+    <Compile Include="SelectionFilterDeviceBox.cs" />
+    <Compile Include="UIUtils.cs" />
+    <Compile Include="EBSException.cs" />
+    <None Include="Test\CmdCreateConduitOld.cs" />
+    <Compile Include="FamilyUtils.cs" />
+    <Compile Include="CmdFPParamAssoc.cs" />
+    <Compile Include="CmdPBRemoveCircuits.cs" />
+    <Compile Include="PBRemoveCircuits.cs" />
+    <Compile Include="PBUpdateSchedules.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="DevicePanelScheduleData.cs" />
+    <Compile Include="ElectricalCircuitData.cs" />
+    <Compile Include="DeviceId.cs" />
+    <Compile Include="DevicePanel.cs" />
+    <None Include="Test\ElectricalSystemItem.cs" />
+    <Compile Include="CmdPBRemoveSpare.cs" />
+    <Compile Include="CmdPBUpdateAllSchedule.cs" />
+    <Compile Include="CmdPBUpdatePSSchedule.cs" />
+    <Compile Include="CmdPBUpdatePLSchedule.cs" />
+    <None Include="Test\RibbonPanelsTest.cs" />
+    <None Include="Test\ElectricalCircuitDataBackup.cs" />
+    <None Include="Test\CmdFPParamAssocBackup.cs" />
+    <Compile Include="RibbonUtils.cs" />
+    <Compile Include="UpdateMoveCircuits.cs" />
+    <Compile Include="UpdateConnectCircuits.cs" />
+    <Compile Include="CmdPBFillSpare.cs" />
+    <Compile Include="CmdPBUpdateSchedule.cs" />
+    <Compile Include="UpdateRemoveAppendCircuits.cs" />
+    <Compile Include="UpdateDisconnectCircuits.cs" />
+    <Compile Include="UpdateAppendCircuits.cs" />
+    <None Include="Test\UpdatePanelSchedules.cs" />
+    <Compile Include="CmdUpdateDeviceSchedules.cs" />
+    <Compile Include="DeviceBox.cs" />
+    <Compile Include="DeviceConnector.cs" />
+    <Compile Include="ElecUtils.cs" />
+    <Compile Include="ExternalApplication.cs" />
+    <Compile Include="CollectElements.cs" />
+    <None Include="Test\GetParameter.cs" />
+    <None Include="Test\GetElementId3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Test\RibbonPanelsOld.cs" />
+    <Compile Include="TCCElecSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RvtElectrical.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\removespare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\electrical_panel_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\electrical_panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\electrical_panel_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\electrical_panel_sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\remove_circuit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\faceplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Faceplate New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\conduit.png" />
+    <Resource Include="Resources\spreadsheet_auto_update.png" />
+    <Resource Include="Resources\spreadsheet_no_auto_update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\conduit_low.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spreadsheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\conduit_high.png" />
+    <Resource Include="Resources\conduit_line.png" />
+    <Resource Include="Resources\conduit_medium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\conduit_other.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\checkmark_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\duplicate.png" />
+    <Resource Include="Resources\duplicate_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\blank_button.png" />
+    <Resource Include="Resources\blank_button_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\autonumber_16x16.png" />
+    <Resource Include="Resources\number_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\autonumber_no_16x16.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)"."" "$(AppData)\Autodesk\Revit\Addins\2020\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
