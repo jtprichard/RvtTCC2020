@@ -38,6 +38,7 @@ namespace RvtElectrical
                 string famDeviceBox = "Device Box";
                 string concatDeviceCode = "";
                 string concatPlateCode = "";
+                string connectorPlaneName = "Connectors";
 
 
                 //GET SYSTEM CODE and TEMPLATE CLASSIFICATION INFORMATION
@@ -122,6 +123,22 @@ namespace RvtElectrical
                         FamilyUtils.AssociateParameters(deviceBoxParams, famParams, doc);
                     }
 
+                    //Create Filtered Element Collector & Filter for Reference Planes
+                    FilteredElementCollector planeCollector =
+                        new FilteredElementCollector(doc).OfClass((typeof(ReferencePlane)));
+
+                    //Apply Filter
+                    IList<Element> planes = planeCollector.WhereElementIsNotElementType().ToElements();
+
+                    Element connectorPlane;
+
+                    //Get plane
+                    foreach (var plane in planes)
+                    {
+                        if (plane.Name == connectorPlaneName)
+                            connectorPlane = plane;
+                    }
+
                     //DEVICE CONNECTOR PARAMETER MAPPING
 
                     int i = 1;
@@ -157,6 +174,12 @@ namespace RvtElectrical
                                 j++;
                             }
                         }
+
+                        //MOVE CONNECTOR TO CONNECTORS REFERENCE PLANE
+                        //INCOMPLETE!!!!
+
+
+
 
 
 
