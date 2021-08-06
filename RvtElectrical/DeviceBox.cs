@@ -18,7 +18,8 @@ namespace RvtElectrical
         public DeviceId DeviceId { get; private set; }                      //Device ID Value
         public System System { get; private set; }                          //Device Box System
         public string Venue { get; private set; }                           //Venue Value
-        public string PlateCode { get; private set; }
+        public string PlateCode { get; private set; }                       //Plate Code
+        public string Mount { get; private set; }                           //Mounting Condition
 
         //public DeviceBox(Document doc, IList<Element> elements)
         ////OLD CONSTRUCTOR - NO LONGER USED
@@ -88,11 +89,15 @@ namespace RvtElectrical
                 {
                     DeviceId = deviceId;
                     System = deviceId.System;
+                    
+                    //Instance Parameters
                     BoxId = ele.get_Parameter(boxIdGuid).AsInteger();
                     Venue = ele.get_Parameter(venueIdGuid).AsString();
 
+                    //Type Parameters
                     ElementType etype = doc.GetElement(ele.GetTypeId()) as ElementType;
                     PlateCode = etype.get_Parameter(TCCElecSettings.PlateCodeGuid).AsString();
+                    Mount = etype.get_Parameter(TCCElecSettings.MountConditionGuid).AsString();
 
                     //Add main device element to box parameters
                     boxElements.Add(ele);

@@ -30,7 +30,7 @@ namespace RvtElectrical
         public static Guid PlateFamilyCodeGuid { get; private set; }                                   //GUID for Shared Parameter TCC_PLATE_FAMILY_CODE
         public static Guid BoxClassificationCode { get; private set; }                                 //GUID for Share Parameter TCC_BOX_CLASSIFICATION_CODE
         public static Guid CSLengthGuid { get; private set; }                                          //GUID for Share Parameter TCC_CS_LENGTH
-
+        public static Guid MountConditionGuid { get; private set; }                                    //GUID for Shared Parameter TCC_MOUNT
 
         static TCCElecSettings()
         {
@@ -58,7 +58,7 @@ namespace RvtElectrical
             PlateFamilyCodeGuid = Guid.Parse("17cb1c20-8320-4ca1-bdac-7f7a856b9e33");           //Input GUID for TCC_PLATE_FAMILY_CODE
             BoxClassificationCode = Guid.Parse("43e68510-ebb5-4761-bbc4-85c438bba8c7");         //Input GUID for TCC_BOX_CLASSIFICATION_CODE
             CSLengthGuid = Guid.Parse("79a02055-1d34-4ba0-a5d7-a14ecf89b960");                  //Input GUID for TCC_CS_LENGTH
-
+            MountConditionGuid = Guid.Parse("f333d375-0cd7-4fb1-8b4c-3343bb2df5d1");            //Input GUID for TCC_MOUNT
         }
     }
 }

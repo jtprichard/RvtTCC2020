@@ -33,7 +33,7 @@ namespace RvtElectrical
                 IList<string> svcPlateCodes = new List<string>();
                 foreach(var svcBox in svcBoxes)
                 {
-                    svcPlateCodes.Add(svcBox.PlateCode);
+                    svcPlateCodes.Add(svcBox.PlateCode + "-" + svcBox.Mount);
                 }
                 svcPlateCodes = svcPlateCodes.Distinct().ToList();
 
@@ -42,14 +42,14 @@ namespace RvtElectrical
                 IList<string> ltgPlateCodes = new List<string>();
                 foreach (var ltgBox in ltgBoxes)
                 {
-                    ltgPlateCodes.Add(ltgBox.PlateCode);
+                    ltgPlateCodes.Add(ltgBox.PlateCode + "-" + ltgBox.Mount);
                 }
 
                 //Also add arch lighting boxes
                 var archLtgBoxes = DeviceBox.GetDeviceBoxes(doc, System.ArchLighting);
                 foreach (var archLtgBox in archLtgBoxes)
                 {
-                    ltgPlateCodes.Add(archLtgBox.PlateCode);
+                    ltgPlateCodes.Add(archLtgBox.PlateCode + "-" + archLtgBox.Mount);
                 }
 
                 ltgPlateCodes = ltgPlateCodes.Distinct().ToList();
@@ -58,7 +58,7 @@ namespace RvtElectrical
                 IList<string> machPlateCodes = new List<string>();
                 foreach (var mchBox in machBoxes)
                 {
-                    machPlateCodes.Add(mchBox.PlateCode);
+                    machPlateCodes.Add(mchBox.PlateCode + "-" + mchBox.Mount);
                 }
                 machPlateCodes = machPlateCodes.Distinct().ToList();
 
@@ -109,10 +109,13 @@ namespace RvtElectrical
 
             return Result.Succeeded;
         }
-        private void CreateSchedule(int ltgbool, int svcbool, int machbool, string boxCode, ViewSchedule template, Document doc)
+        private void CreateSchedule(int ltgbool, int svcbool, int machbool, string boxData, ViewSchedule template, Document doc)
         {
             var defaultScheduleTypeParameterName = "TCC Schedule Type";
             var defaultSchedulePrefix = "Faceplate - ";
+
+            var boxCode = GetBoxCode(boxData);
+            var mount = GetMountCondition(boxData);
 
             using (Transaction trans = new Transaction(doc, "CreateSchedule"))
             {
@@ -124,7 +127,7 @@ namespace RvtElectrical
                     ElementId newScheduleId = template.Duplicate(ViewDuplicateOption.Duplicate);
                     ViewSchedule newSchedule = doc.GetElement(newScheduleId) as ViewSchedule;
             
-                    newSchedule.Name = _scheduleNamePrefix + boxCode;
+                    newSchedule.Name = _scheduleNamePrefix + boxData;
 
                     //Get Schedule Type Parameter and assign name
                     Parameter scheduleTypeParam = newSchedule.LookupParameter(defaultScheduleTypeParameterName);
@@ -140,11 +143,13 @@ namespace RvtElectrical
                     var ltgParamId = SharedParameterElement.Lookup(doc, new Guid("cfa4ada1-0dc3-4911-bf37-6aaa9d9c86e6")).Id;
                     var machParamId = SharedParameterElement.Lookup(doc, new Guid("975c6667-6c6b-4193-a60a-7cadb145ec2e")).Id;
                     var boxCodeParamId = SharedParameterElement.Lookup(doc, TCCElecSettings.PlateCodeGuid).Id;
+                    var mountParamId = SharedParameterElement.Lookup(doc, TCCElecSettings.MountConditionGuid).Id;
 
                     ScheduleFieldId svcFieldId = null;
                     ScheduleFieldId ltgFieldId = null;
                     ScheduleFieldId machFieldId = null;
                     ScheduleFieldId boxCodeFieldId = null;
+                    ScheduleFieldId mountFieldId = null;
 
                     //ScheduleFilter filter = new ScheduleFilter();
                     var scheduleFieldIds = newSchedule.Definition.GetFieldOrder();
@@ -168,6 +173,8 @@ namespace RvtElectrical
                         //machFieldIndex = sf.FieldIndex;
                         if (sf.ParameterId == boxCodeParamId)
                             boxCodeFieldId = sf.FieldId;
+                        if (sf.ParameterId == mountParamId)
+                            mountFieldId = sf.FieldId;
                         //boxCodeIndex = sf.FieldIndex;
                     }
 
@@ -179,10 +186,12 @@ namespace RvtElectrical
                     var foundltgFilter = new ScheduleFilter();
                     var foundmachFilter = new ScheduleFilter();
                     var foundBoxCodeFilter = new ScheduleFilter();
+                    var foundMountFilter = new ScheduleFilter();
                     int svcindex = 0;
                     int ltgindex = 0;
                     int machindex = 0;
                     int boxCodeIndex = 0;
+                    int mountIndex = 0;
                     int i = 0;
                     foreach (ScheduleFilter filter in scheduleFilters)
                     {
@@ -212,6 +221,12 @@ namespace RvtElectrical
                             boxCodeIndex = i;
                         }
 
+                        if (filter.FieldId == mountFieldId)
+                        {
+                            foundMountFilter = filter;
+                            mountIndex = i;
+                        }
+
                         i++;
                     }
 
@@ -220,11 +235,13 @@ namespace RvtElectrical
                     //foundltgFilter.SetValue(ltgbool);
                     //foundmachFilter.SetValue(machbool);
                     foundBoxCodeFilter.SetValue(boxCode);
+                    foundMountFilter.SetValue(mount);
 
                     //newSchedule.Definition.SetFilter(svcindex, foundsvcFilter);
                     //newSchedule.Definition.SetFilter(ltgindex, foundltgFilter);
                     //newSchedule.Definition.SetFilter(machindex, foundmachFilter);
                     newSchedule.Definition.SetFilter(boxCodeIndex, foundBoxCodeFilter);
+                    newSchedule.Definition.SetFilter(mountIndex,foundMountFilter);
 
                     trans.Commit();
                 }
@@ -253,6 +270,16 @@ namespace RvtElectrical
 
             return located;
 
+        }
+
+        private string GetBoxCode(string input)
+        {
+            return input.Substring(0, (input.IndexOf('-')));
+        }
+
+        private string GetMountCondition(string input)
+        {
+            return input.Substring((input.IndexOf('-')+1));
         }
     }
 }
