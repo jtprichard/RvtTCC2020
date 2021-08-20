@@ -540,11 +540,13 @@ namespace RvtElectrical
                 }
 
                 _circuitLabelUpdater = new IUCircuitLabel(app.ActiveAddInId);
+                
                 UpdaterRegistry.RegisterUpdater(_circuitLabelUpdater);
                 ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_ElectricalFixtures);
                 UpdaterRegistry.AddTrigger(_circuitLabelUpdater.GetUpdaterId(), filter, Element.GetChangeTypeParameter(eid));
                 UpdaterRegistry.AddTrigger(_circuitLabelUpdater.GetUpdaterId(), filter, Element.GetChangeTypeParameter(eid2));
                 UpdaterRegistry.AddTrigger(_circuitLabelUpdater.GetUpdaterId(), filter, Element.GetChangeTypeParameter(eid3));
+                UpdaterRegistry.SetIsUpdaterOptional(_circuitLabelUpdater.GetUpdaterId(), true);
             }
         }
 
@@ -597,6 +599,7 @@ namespace RvtElectrical
                 UpdaterRegistry.RegisterUpdater(_autoNumberBoxUpdater);
                 ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_ElectricalFixtures);
                 UpdaterRegistry.AddTrigger(_autoNumberBoxUpdater.GetUpdaterId(), filter, Element.GetChangeTypeElementAddition());
+                UpdaterRegistry.SetIsUpdaterOptional(_autoNumberBoxUpdater.GetUpdaterId(), true);
             }
         }
 
