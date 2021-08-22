@@ -219,6 +219,21 @@ namespace RvtElectrical
 
             return connectors;
         }
+
+        static public List<DeviceConnector> GetConnectorsByBox(DeviceBox box, Voltage voltage)
+        //Return any connector that matches the connector group type
+        {
+            List<DeviceConnector> connectors = new List<DeviceConnector>();
+            foreach (DeviceConnector connector in box.Connectors)
+            {
+                if (connector.DeviceId.Voltage == voltage)
+                {
+                    connectors.Add(connector);
+                }
+            }
+
+            return connectors;
+        }
         static public List<DeviceConnector> GetConnectorsByBox(IList<DeviceBox> boxes)
         //Return any connectors in a list of DeviceBoxes
         {

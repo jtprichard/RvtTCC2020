@@ -48,7 +48,7 @@ namespace RvtElectrical
                 //CHANGE SEARCH PARAMETERS TO LOOK FOR CONNECTORS BY VOLTAGE
                 //WILL NEED TO ADD GETCONNECTORSBYBOX OVERLOAD TO SEARCH FOR VOLTAGE
 
-                var powerConnectors = DeviceConnector.GetConnectorsByBox(db,59);
+                var powerConnectors = DeviceConnector.GetConnectorsByBox(db,Voltage.High120V1Ph);
                 Element powerConnectorElement = powerConnectors.First().Connector;
 
 
@@ -86,7 +86,7 @@ namespace RvtElectrical
                         trans.Start();
 
                         //Desired tag info
-                        var familyTagName = "SVC Power Tag Multicategory";
+                        var familyTagName = "Power Tag Multicategory";
                         var familyTagNameSymb = "Power_IG";
                         var bicTagBeing = BuiltInCategory.OST_MultiCategoryTags;
                         
