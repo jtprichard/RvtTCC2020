@@ -11,11 +11,11 @@ namespace RvtElectrical
     public class DeviceId
     {
         public int Value { get; private set; }                          //Device ID Value
-        public System System                                            //System Value (10000000)
+        public DeviceSystem System                                            //System Value (10000000)
         {
             get
             {
-                return (System)((Value / 10000000) * 10000000);
+                return (DeviceSystem)((Value / 10000000) * 10000000);
             }
             private set { }
         }         
@@ -70,38 +70,38 @@ namespace RvtElectrical
         public bool IsLightingBox()
         //Returns True if device is a Lighting Box code
         {
-            if (System == System.PerfLighting && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.PerfLighting && Device == Device.Faceplate) return true;
             else return false;
         }
         public bool IsArchLightingBox()
         //Returns True if device is a Arch Lighting Box code
         {
-            if (System == System.ArchLighting && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.ArchLighting && Device == Device.Faceplate) return true;
             else return false;
         }
         public bool IsCablePass()
         //Returns True if device is a Cable Pass
         {
-            if (System == System.CablePasses && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.CablePasses && Device == Device.Faceplate) return true;
             else return false;
         }
 
         public bool IsSVCBox()
         //Returns True if device is an SVC Box code
         {
-            if (System == System.PerfSVC && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.PerfSVC && Device == Device.Faceplate) return true;
             else return false;
         }
         public bool IsMachBox()
         //Returns True if device is a Machinery Box code
         {
-            if (System == System.PerfMachinery && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.PerfMachinery && Device == Device.Faceplate) return true;
             else return false;
         }
         public bool IsGeneralBox()
         //Returns True if device is a General Box code
         {
-            if (System == System.General && Device == Device.Faceplate) return true;
+            if (System == DeviceSystem.General && Device == Device.Faceplate) return true;
             else return false;
         }
         public bool IsDeviceBox()
@@ -128,22 +128,22 @@ namespace RvtElectrical
         }
         public Boolean IsLightingPanel()
         {
-            if (System == System.PerfLighting && Device == Device.Panel) return true;
+            if (System == DeviceSystem.PerfLighting && Device == Device.Panel) return true;
             else return false;
         }
         public Boolean IsSVCPanel()
         {
-            if (System == System.PerfSVC && Device == Device.Panel) return true;
+            if (System == DeviceSystem.PerfSVC && Device == Device.Panel) return true;
             else return false;
         }
         public Boolean IsMachPanel()
         {
-            if (System == System.PerfMachinery && Device == Device.Panel) return true;
+            if (System == DeviceSystem.PerfMachinery && Device == Device.Panel) return true;
             else return false;
         }
         public Boolean IsGeneralPanel()
         {
-            if (System == System.General && Device == Device.Panel) return true;
+            if (System == DeviceSystem.General && Device == Device.Panel) return true;
             else return false;
         }
         public Boolean IsPanel()

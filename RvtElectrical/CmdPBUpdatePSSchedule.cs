@@ -24,7 +24,7 @@ namespace RvtElectrical
             Document doc = uidoc.Document;
 
             //Retreive all lighting panels in project
-            IList<DevicePanel> devicePanels = DevicePanel.GetDevicePanels(doc, System.PerfSVC);
+            IList<DevicePanel> devicePanels = DevicePanel.GetDevicePanels(doc, DeviceSystem.PerfSVC);
 
             if(devicePanels.Count > 0)
             {

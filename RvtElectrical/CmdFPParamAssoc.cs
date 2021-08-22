@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI.Events;
 using System.Windows.Forms;
+using RvtDialogs;
 
 namespace RvtElectrical
 {
@@ -16,7 +18,6 @@ namespace RvtElectrical
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-
             //Get UIDocument
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
@@ -25,7 +26,7 @@ namespace RvtElectrical
 
             if (!doc.IsFamilyDocument)
             {
-                TaskDialog.Show("Document Error", "Command only availabe in Family Editor");
+                TaskDialog.Show("Document Error", "Command only availabLe in Family Editor");
                 return Result.Failed;
             }
 
@@ -164,9 +165,64 @@ namespace RvtElectrical
                     trans.Commit();
                 }
 
+                //Set Required Parameters from underlying connectors
+
+                using (Transaction trans = new Transaction(doc, "Update Plate Parameters"))
+                {
+                    trans.Start();
+
+                    // If a power connector exists, set the Has Power = true
+                    bool hasPower = false;
+                    bool isIG = false;
+                    foreach(DeviceConnector connector in deviceConnectors)
+                    {
+                        if ((connector.DeviceId.Voltage != Voltage.LowVoltage) && (connector.DeviceId.Voltage != Voltage.MixedVoltage))
+                            hasPower = true;
+
+                        ElementId eid = connector.Connector.GetTypeId();
+                        var ConnectorType = doc.GetElement(connector.Connector.GetTypeId());
+                        if(ConnectorType.get_Parameter(TCCElecSettings.IsIGGuid) != null)
+                        {
+                            var param = ConnectorType.get_Parameter(TCCElecSettings.IsIGGuid);
+                            if (param.AsInteger() == 1)
+                            {
+                                isIG = true;
+                            }
+                        }
 
 
-                if (isValidPlate)
+
+                    }
+
+                    foreach(FamilyParameter param in famParams)
+                    {
+                        if ((param.IsShared) && (param.GUID == TCCElecSettings.HasPowerGuid))
+                            if (hasPower)
+                                doc.FamilyManager.SetFormula(param, "1=1");
+                            else
+                            {
+                                doc.FamilyManager.SetFormula(param, "1=0");
+                                doc.FamilyManager.SetFormula(param, null);
+                            }
+
+                        if ((param.IsShared) && (param.GUID == TCCElecSettings.IsIGGuid))
+                            if (isIG)
+                                doc.FamilyManager.SetFormula(param, "1=1");
+                            else
+                            {
+                                doc.FamilyManager.SetFormula(param, "1=0");
+                                doc.FamilyManager.SetFormula(param, null);
+                            }
+
+                    }
+
+                    trans.Commit();
+
+                }
+
+
+
+                    if (isValidPlate)
                 {
                     //FAMILY CODE CREATION
                     using (Transaction trans = new Transaction(doc, "Map Parameters"))
@@ -176,7 +232,9 @@ namespace RvtElectrical
 
                         try
                         {
-
+                            
+                            
+                            
                             //Get connector group series codes
 
                             // Get distinct group connectors and sort
@@ -328,7 +386,14 @@ namespace RvtElectrical
 
                             string plateFourthDigit = "";
                             if (plateClassCode == "U" || plateClassCode == "S")
-                                plateFourthDigit = "#";
+                            {
+                                PlateNumDialog win = new PlateNumDialog();
+                                win.SizeToContent = SizeToContent.WidthAndHeight;
+                                win.ShowDialog();
+
+                                plateFourthDigit = win.returnValue;
+                            }
+
 
                             concatPlateCode = concatPlateCode + SystemCode +
                                 plateClassCode +
@@ -337,12 +402,15 @@ namespace RvtElectrical
 
                             string concatParamPlateCode = "\"" + concatPlateCode + "\"";
 
+                            //Add Plate code to front of device code
+                            concatDeviceCode = "(" + concatPlateCode + ") " + concatDeviceCode;
+
                             //Assign to family parameter
                             FamilyParameter famPlateCodeParam = doc.FamilyManager.get_Parameter(TCCElecSettings.PlateCodeGuid);
                             doc.FamilyManager.SetFormula(famPlateCodeParam, concatParamPlateCode);
 
                             //Copy Family Name Code to Clipboard
-                            Clipboard.SetText(concatDeviceCode);
+                            System.Windows.Forms.Clipboard.SetText(concatDeviceCode);
                             trans.Commit();
 
                             if (TaskDialog.Show("Command Succeeded", "Parameters Association Complete" + Environment.NewLine +

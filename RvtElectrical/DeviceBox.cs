@@ -16,7 +16,7 @@ namespace RvtElectrical
         public IList<DeviceConnector> Connectors { get; private set; }      //List of Connector Elements
         public int BoxId { get; private set; }                              //Box ID Integer
         public DeviceId DeviceId { get; private set; }                      //Device ID Value
-        public System System { get; private set; }                          //Device Box System
+        public DeviceSystem System { get; private set; }                          //Device Box System
         public string Venue { get; private set; }                           //Venue Value
         public string PlateCode { get; private set; }                       //Plate Code
         public string Mount { get; private set; }                           //Mounting Condition
@@ -260,7 +260,7 @@ namespace RvtElectrical
             return deviceBoxes;
         }
 
-        public static IList<DeviceBox> GetDeviceBoxes(Document doc, System deviceScope)
+        public static IList<DeviceBox> GetDeviceBoxes(Document doc, DeviceSystem deviceScope)
         //Get Device Boxes based on devices having a specific system scope
         {
             //Get all deviceboxes in model
@@ -278,7 +278,7 @@ namespace RvtElectrical
             return filteredDeviceBoxes;
         }
         
-        private static IList<DeviceBox> ChangeDeviceBoxToConnectorScope(IList<DeviceBox> deviceBoxes, System deviceScope)
+        private static IList<DeviceBox> ChangeDeviceBoxToConnectorScope(IList<DeviceBox> deviceBoxes, DeviceSystem deviceScope)
         {
             var updatedDeviceBoxes = new List<DeviceBox>();
 

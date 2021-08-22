@@ -29,7 +29,7 @@ namespace RvtElectrical
             try
             {
                 //Locate all Distinct DeviceBoxes
-                var svcBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfSVC);
+                var svcBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC);
                 IList<string> svcPlateCodes = new List<string>();
                 foreach(var svcBox in svcBoxes)
                 {
@@ -38,7 +38,7 @@ namespace RvtElectrical
                 svcPlateCodes = svcPlateCodes.Distinct().ToList();
 
                 //Performance Lighting Boxes
-                var ltgBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfLighting);
+                var ltgBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfLighting);
                 IList<string> ltgPlateCodes = new List<string>();
                 foreach (var ltgBox in ltgBoxes)
                 {
@@ -46,7 +46,7 @@ namespace RvtElectrical
                 }
 
                 //Also add arch lighting boxes
-                var archLtgBoxes = DeviceBox.GetDeviceBoxes(doc, System.ArchLighting);
+                var archLtgBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.ArchLighting);
                 foreach (var archLtgBox in archLtgBoxes)
                 {
                     ltgPlateCodes.Add(archLtgBox.PlateCode + "-" + archLtgBox.Mount);
@@ -54,7 +54,7 @@ namespace RvtElectrical
 
                 ltgPlateCodes = ltgPlateCodes.Distinct().ToList();
 
-                var machBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfMachinery);
+                var machBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfMachinery);
                 IList<string> machPlateCodes = new List<string>();
                 foreach (var mchBox in machBoxes)
                 {

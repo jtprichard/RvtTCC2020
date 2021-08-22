@@ -31,6 +31,8 @@ namespace RvtElectrical
         public static Guid BoxClassificationCode { get; private set; }                                 //GUID for Share Parameter TCC_BOX_CLASSIFICATION_CODE
         public static Guid CSLengthGuid { get; private set; }                                          //GUID for Share Parameter TCC_CS_LENGTH
         public static Guid MountConditionGuid { get; private set; }                                    //GUID for Shared Parameter TCC_MOUNT
+        public static Guid HasPowerGuid { get; private set; }                                           //GUID for Shared Parameter TCC_HAS_POWER
+        public static Guid IsIGGuid { get; private set; }                                              //GUID for Shared Parameter TCC_IS_IG
 
         static TCCElecSettings()
         {
@@ -59,6 +61,8 @@ namespace RvtElectrical
             BoxClassificationCode = Guid.Parse("43e68510-ebb5-4761-bbc4-85c438bba8c7");         //Input GUID for TCC_BOX_CLASSIFICATION_CODE
             CSLengthGuid = Guid.Parse("79a02055-1d34-4ba0-a5d7-a14ecf89b960");                  //Input GUID for TCC_CS_LENGTH
             MountConditionGuid = Guid.Parse("f333d375-0cd7-4fb1-8b4c-3343bb2df5d1");            //Input GUID for TCC_MOUNT
+            HasPowerGuid = Guid.Parse("333173e5-6767-487a-81d5-a97d56ec5e30");                  //Input GUID for TCC_HAS_POWER
+            IsIGGuid = Guid.Parse("e82fb01e-d439-48c5-81e1-2276b3c7bc60");                      //Input GUID for TCC_IS_IG
         }
     }
 }

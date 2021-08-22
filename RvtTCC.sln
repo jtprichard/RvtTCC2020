@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtElectrical", "RvtElectri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtRigging", "RvtRigging\RvtRigging.csproj", "{3029352E-26C1-43C6-8989-C71260421B48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtDialogs", "RvtDialogs\RvtDialogs.csproj", "{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3029352E-26C1-43C6-8989-C71260421B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3029352E-26C1-43C6-8989-C71260421B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3029352E-26C1-43C6-8989-C71260421B48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

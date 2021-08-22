@@ -24,7 +24,7 @@ namespace RvtElectrical
             Document doc = uidoc.Document;
 
             //Extract lighting panels
-            IList<DevicePanel> lightingPanels = DevicePanel.GetDevicePanels(doc, System.PerfLighting);
+            IList<DevicePanel> lightingPanels = DevicePanel.GetDevicePanels(doc, DeviceSystem.PerfLighting);
 
             //Test Panels for Errors
             DevicePanel.TestPanelsForErrors(lightingPanels);

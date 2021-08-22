@@ -49,9 +49,9 @@ namespace RvtElectrical
                 if(!panel.PanelSchedule.IsSlotSpare(slotNumber))
                 {
                     panel.PanelSchedule.SetSlotSpare(slotNumber);
-                    if (panel.System == System.PerfLighting)
+                    if (panel.System == DeviceSystem.PerfLighting)
                         panel.PanelSchedule.SetSlotAddress(slotNumber, i.ToString());
-                    else if (panel.System == System.PerfSVC)
+                    else if (panel.System == DeviceSystem.PerfSVC)
                         panel.PanelSchedule.SetSlotAddress(slotNumber, "Y");
                 }
 

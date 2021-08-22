@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RvtElectrical
 {
-    public enum System
+    public enum DeviceSystem
     // An enumeration type for Specialty Device System
     // Integer keys match Device ID standards
     {

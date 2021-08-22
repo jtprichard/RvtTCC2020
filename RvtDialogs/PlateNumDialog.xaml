@@ -1,0 +1,33 @@
+﻿<Window x:Class="RvtDialogs.PlateNumDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RvtDialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="320"
+             Title="Device Box Number">
+
+    <Grid Width="300" Height="150">
+        <Border BorderBrush="#92278F" BorderThickness="3">
+    <StackPanel>
+                <StackPanel Margin="0,30,0,30" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <TextBlock Margin="0,0,20,0">
+                    <Run>Enter A Number For the Box:</Run>
+                    <LineBreak/>
+                    <Run>[Example: (UA4</Run><Run FontWeight="Bold" Foreground="Red">#</Run><Run>)]</Run>
+                    </TextBlock>
+                    <TextBox Width="100" Height="20"  TextAlignment="Center"
+                 x:Name="BoxInput"></TextBox>
+
+                </StackPanel>
+
+            <Button Width="100"
+                    x:Name="btnAccept"
+                    Click="btnAccept_Click">OK</Button>
+    </StackPanel>
+        </Border>
+    </Grid>
+
+</Window>

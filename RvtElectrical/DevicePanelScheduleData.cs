@@ -310,7 +310,7 @@ namespace RvtElectrical
             string description = "";
             switch (Panel.System)
             {
-                case System.PerfLighting:
+                case DeviceSystem.PerfLighting:
                     if(IsPowerPanel)
                     {
                         description = addressNumber.ToString();
@@ -328,7 +328,7 @@ namespace RvtElectrical
                             description = deviceConnector.ConnectorLabelOther;
                     }
                     break;
-                case System.PerfSVC:
+                case DeviceSystem.PerfSVC:
                     if (IsPowerPanel)
                     {
                         description = "Y";

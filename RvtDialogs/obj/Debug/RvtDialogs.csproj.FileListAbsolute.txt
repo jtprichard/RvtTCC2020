@@ -1,0 +1,11 @@
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.dll
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.pdb
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\PlateNumDialog.g.cs
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs_MarkupCompile.cache
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs_MarkupCompile.lref
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\PlateNumDialog.baml
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.g.resources
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.CoreCompileInputs.cache
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.dll
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.pdb
+D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.AssemblyReference.cache

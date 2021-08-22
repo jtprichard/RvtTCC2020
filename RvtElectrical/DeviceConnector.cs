@@ -13,7 +13,7 @@ namespace RvtElectrical
         public Element Connector { get; private set; }                                                  //Connector Element
         public int BoxId { get; private set; }                                                          //Box ID Value
         public DeviceId DeviceId { get; private set; }                                                  //Device ID Value
-        public System System                                                                            //Device Connector System
+        public DeviceSystem System                                                                            //Device Connector System
         {
             get
             {

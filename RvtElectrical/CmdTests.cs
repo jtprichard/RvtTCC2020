@@ -16,6 +16,7 @@ namespace RvtElectrical
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             UIApplication uiapp = commandData.Application;
             Document doc = uidoc.Document;
@@ -44,6 +45,8 @@ namespace RvtElectrical
                 //INSTEAD OF JUST GETTING THE FIRST, CREATE A TAG FOR EACH ONE SLIGHTLY OFFSET
                 //USE THIS TECHNIQUE FOR TAGGING POWER VS. NON POWER ITEMS
                 //THIS CAN BE THE TAGGING TECHNIQUE FOR DEVICE BOXES IN GENERAL
+                //CHANGE SEARCH PARAMETERS TO LOOK FOR CONNECTORS BY VOLTAGE
+                //WILL NEED TO ADD GETCONNECTORSBYBOX OVERLOAD TO SEARCH FOR VOLTAGE
 
                 var powerConnectors = DeviceConnector.GetConnectorsByBox(db,59);
                 Element powerConnectorElement = powerConnectors.First().Connector;

@@ -23,7 +23,7 @@ namespace RvtElectrical
         public bool IsDataPanel { get; private set; }                       //Notes if this is a Data Panel
         
         public DeviceId DeviceId { get; private set; }                      //Device ID
-        public System System                                                //Device Panel System
+        public DeviceSystem System                                                //Device Panel System
         {
             get
             {
@@ -156,7 +156,7 @@ namespace RvtElectrical
             return devicePanels;
         }
 
-        public static IList<DevicePanel> GetDevicePanels(Document doc, System deviceScope)
+        public static IList<DevicePanel> GetDevicePanels(Document doc, DeviceSystem deviceScope)
         {
             var devicePanels = FilterAllDevicePanels(doc);
 
@@ -168,7 +168,7 @@ namespace RvtElectrical
             return filteredDevicePanels;
         }
 
-        public static IList<DevicePanel> GetDevicePanels(Document doc, System deviceScope, ElectricalSystemType systemType)
+        public static IList<DevicePanel> GetDevicePanels(Document doc, DeviceSystem deviceScope, ElectricalSystemType systemType)
         {
             var devicePanels = FilterAllDevicePanels(doc);
 
