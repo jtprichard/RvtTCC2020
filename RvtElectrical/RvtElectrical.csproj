@@ -69,12 +69,14 @@
     <Compile Include="CmdToggleCircuitLabelButton.cs" />
     <Compile Include="CmdToggleAutoNumberBoxButton.cs" />
     <Compile Include="Conduits.cs" />
+    <Compile Include="FamilyLocateUtils.cs" />
     <Compile Include="IUAutoNumberBox.cs" />
     <Compile Include="IUDuplicateBox.cs" />
     <Compile Include="IUCircuitLabel.cs" />
     <None Include="CmdCircuitLabelUpdater.cs" />
     <Compile Include="CmdToggleDuplicateButton.cs" />
     <Compile Include="SelectionFilterDeviceBox.cs" />
+    <None Include="Test\CmdTestsForFaceplateSchedules.cs" />
     <Compile Include="UIUtils.cs" />
     <Compile Include="EBSException.cs" />
     <None Include="Test\CmdCreateConduitOld.cs" />

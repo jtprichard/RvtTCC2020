@@ -19,21 +19,35 @@ namespace RvtElectrical
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             UIApplication uiapp = commandData.Application;
             Document doc = uidoc.Document;
+            View view = doc.ActiveView;
 
             //Define a reference Object to accept the pick result
             Reference pickedObj = null;
             
-            ////Pick an object
-            //Selection sel = uiapp.ActiveUIDocument.Selection;
+            //Pick an object
+            Selection sel = uiapp.ActiveUIDocument.Selection;
 
-            //pickedObj = sel.PickObject(ObjectType.Element, "Select an element");
-            //Element elem = doc.GetElement(pickedObj);
+            pickedObj = sel.PickObject(ObjectType.Element, "Select an element");
+            Element elem = doc.GetElement(pickedObj);
+
 
             
 
+
             try
             {
-                //DeviceBox db = new DeviceBox(doc, elem);
+
+
+                DeviceBox db = new DeviceBox(doc, elem);
+
+                //GET THE POWER CONNECTORS
+                //INSTEAD OF JUST GETTING THE FIRST, CREATE A TAG FOR EACH ONE SLIGHTLY OFFSET
+                //USE THIS TECHNIQUE FOR TAGGING POWER VS. NON POWER ITEMS
+                //THIS CAN BE THE TAGGING TECHNIQUE FOR DEVICE BOXES IN GENERAL
+
+                var powerConnectors = DeviceConnector.GetConnectorsByBox(db,59);
+                Element powerConnectorElement = powerConnectors.First().Connector;
+
 
                 //string dbBoxId = db.DeviceId.Value.ToString();
                 //string dbNumber = db.BoxId.ToString();
@@ -60,21 +74,7 @@ namespace RvtElectrical
 
                 //Locate a schedule to duplicate
 
-                bool located = false;
-                FilteredElementCollector col = new FilteredElementCollector(doc).OfClass(typeof(ViewSchedule));
-                ViewSchedule template = col.First() as ViewSchedule;
 
-                foreach(ViewSchedule vs in col)
-                {
-                    if (vs.Name == "Faceplate_Schedule_Template")
-                    {
-                        template = vs;
-                        //template.Duplicate(ViewDuplicateOption.Duplicate);
-                        located = true;
-                    }
-                }
-                if (!located)
-                    return Result.Failed;
 
                 using (Transaction trans = new Transaction(doc, "Command Test"))
                 {
@@ -82,127 +82,38 @@ namespace RvtElectrical
                     {
                         trans.Start();
 
-                        //Duplicates and renames schedule
-                        ElementId newScheduleId = template.Duplicate(ViewDuplicateOption.Duplicate);
-                        ViewSchedule newSchedule = doc.GetElement(newScheduleId) as ViewSchedule;
-                        newSchedule.Name = "TestName";
+                        //Desired tag info
+                        var familyTagName = "SVC Power Tag Multicategory";
+                        var familyTagNameSymb = "Power_IG";
+                        var bicTagBeing = BuiltInCategory.OST_MultiCategoryTags;
+                        
+                        //Define tag mode and orientation
+                        TagMode tagMode = TagMode.TM_ADDBY_MULTICATEGORY;
+                        TagOrientation tagorn = TagOrientation.Horizontal;
 
+                        LocationPoint elemLocation = elem.Location as LocationPoint;
 
-                        var svcParamId = SharedParameterElement.Lookup(doc, new Guid("2d71673f-91f3-4627-98d6-7de0a8926157")).Id;
-                        var ltgParamId = SharedParameterElement.Lookup(doc, new Guid("cfa4ada1-0dc3-4911-bf37-6aaa9d9c86e6")).Id;
-                        var machParamId = SharedParameterElement.Lookup(doc, new Guid("975c6667-6c6b-4193-a60a-7cadb145ec2e")).Id;
-                        var boxCodeParamId = SharedParameterElement.Lookup(doc, TCCElecSettings.PlateCodeGuid).Id;
+                        XYZ boxLocation = elemLocation.Point;
+                        Reference elemRef = new Reference(powerConnectorElement);
 
-                        //var sfs = newSchedule.Definition.GetSchedulableFields();
-                        //var svcField = new SchedulableField();
-                        //var ltgField = new SchedulableField();
-                        //var machField = new SchedulableField();
+                        IndependentTag newTag = IndependentTag.Create(doc, view.Id, elemRef, true, tagMode, tagorn, boxLocation);
 
+                        Element desiredTagType = FamilyLocateUtils.FindFamilyType(doc, typeof(FamilySymbol), familyTagName, familyTagNameSymb, bicTagBeing);
 
-                        //foreach(SchedulableField f in sfs)
-                        //{
-                        //    if (f.ParameterId == svcSPE)
-                        //        svcField = f;
-                        //    if (f.ParameterId == ltgSPE)
-                        //        ltgField = f;
-                        //    if (f.ParameterId == machSPE)
-                        //        machField = f;
-
-                        //}
-
-
-                        ScheduleFieldId svcFieldId = null;
-                        ScheduleFieldId ltgFieldId = null;
-                        ScheduleFieldId machFieldId = null;
-                        ScheduleFieldId boxCodeFieldId = null;
-
-                        //ScheduleFilter filter = new ScheduleFilter();
-                        var scheduleFieldIds = newSchedule.Definition.GetFieldOrder();
-                        var scheduleFields = new List<ScheduleField>();
-
-                        foreach(ScheduleFieldId id in scheduleFieldIds)
+                        if (desiredTagType != null)
                         {
-                            scheduleFields.Add(newSchedule.Definition.GetField(id));
+                            newTag.ChangeTypeId(desiredTagType.Id);
                         }
 
-                        foreach(ScheduleField sf in scheduleFields)
-                        {
-                            if (sf.ParameterId == svcParamId)
-                                svcFieldId = sf.FieldId;
-                            //svcFieldIndex = sf.FieldIndex;
-                            if (sf.ParameterId == ltgParamId)
-                                ltgFieldId = sf.FieldId;
-                            //ltgFieldIndex = sf.FieldIndex;
-                            if (sf.ParameterId == machParamId)
-                                machFieldId = sf.FieldId;
-                            //machFieldIndex = sf.FieldIndex;
-                            if (sf.ParameterId == boxCodeParamId)
-                                boxCodeFieldId = sf.FieldId;
-                                //boxCodeIndex = sf.FieldIndex;
-                        }
-
-
-                        //Gets schedule filters by current label data
-                        //probably not the best way to do this
-                        var scheduleFilters = newSchedule.Definition.GetFilters();
-                        var foundsvcFilter = new ScheduleFilter();
-                        var foundltgFilter = new ScheduleFilter();
-                        var foundmachFilter = new ScheduleFilter();
-                        var foundBoxCodeFilter = new ScheduleFilter();
-                        int svcindex = 0;
-                        int ltgindex = 0;
-                        int machindex = 0;
-                        int boxCodeIndex = 0;
-                        int i = 0;
-                        foreach(ScheduleFilter filter in scheduleFilters)
-                        {
-                            //if (filter.IsStringValue && filter.GetStringValue() == "PLATE")
-                  
-                            if(filter.FieldId == svcFieldId)
-                            {
-                                foundsvcFilter = filter;
-                                svcindex = i;
-                            }
-
-                            if (filter.FieldId == ltgFieldId)
-                            {
-                                foundltgFilter = filter;
-                                ltgindex = i;
-                            }
-
-                            if (filter.FieldId == machFieldId)
-                            {
-                                foundmachFilter = filter;
-                                machindex = i;
-                            }
-
-                            if (filter.FieldId == boxCodeFieldId)
-                            {
-                                foundBoxCodeFilter = filter;
-                                boxCodeIndex = i;
-                            }
-
-                            i++;
-                        }
-
-                        //Applies filter data and filter
-                        foundsvcFilter.SetValue(1);
-                        foundltgFilter.SetValue(0);
-                        foundmachFilter.SetValue(0);
-                        foundBoxCodeFilter.SetValue("HELLO!");
-
-                        newSchedule.Definition.SetFilter(svcindex, foundsvcFilter);
-                        newSchedule.Definition.SetFilter(ltgindex, foundltgFilter);
-                        newSchedule.Definition.SetFilter(machindex, foundmachFilter);
-                        newSchedule.Definition.SetFilter(boxCodeIndex, foundBoxCodeFilter);
 
 
 
                         trans.Commit();
                     }
 
-                    catch
+                    catch (Exception e)
                     {
+                        TaskDialog.Show("ERROR", e.Message);
                         trans.Dispose();
                     }
 

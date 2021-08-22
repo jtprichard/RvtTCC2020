@@ -441,7 +441,7 @@ namespace RvtElectrical
 
             //BUTTON TO INITIATE TEST
             PushButtonData buttonManualUpdate = new PushButtonData("Test_Button", "Initiate \nTest",
-                path, "RvtElectrical.CmdCreateFaceplateSchedules");
+                path, "RvtElectrical.CmdTests");
             buttonManualUpdate.ToolTip = "PB Test - Do Not Use";
             //buttonManualUpdate.LargeImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder, "")));
 
