@@ -440,8 +440,10 @@ namespace RvtElectrical
             RibbonPanel panel = application.CreateRibbonPanel(tabName, "Test Area");
 
             //BUTTON TO INITIATE TEST
+            //PushButtonData buttonManualUpdate = new PushButtonData("Test_Button", "Initiate \nTest",
+            //    path, "RvtElectrical.CmdTests");
             PushButtonData buttonManualUpdate = new PushButtonData("Test_Button", "Initiate \nTest",
-                path, "RvtElectrical.CmdTests");
+                path, "RvtElectrical.CmdTagDeviceBoxPower");
             buttonManualUpdate.ToolTip = "PB Test - Do Not Use";
             //buttonManualUpdate.LargeImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder, "")));
 

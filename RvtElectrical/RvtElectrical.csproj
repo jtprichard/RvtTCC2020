@@ -60,6 +60,7 @@
     <Compile Include="CmdRenumberBoxes.cs" />
     <Compile Include="CmdBlank.cs" />
     <Compile Include="CmdCreateFaceplateSchedules.cs" />
+    <Compile Include="CmdTagDeviceBoxPower.cs" />
     <Compile Include="CmdTests.cs" />
     <Compile Include="CmdCreateConduitLow.cs" />
     <Compile Include="CmdCreateConduitMedium.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="CmdToggleCircuitLabelButton.cs" />
     <Compile Include="CmdToggleAutoNumberBoxButton.cs" />
     <Compile Include="Conduits.cs" />
+    <Compile Include="DeviceTag.cs" />
     <Compile Include="FamilyLocateUtils.cs" />
     <Compile Include="IUAutoNumberBox.cs" />
     <Compile Include="IUDuplicateBox.cs" />

@@ -83,12 +83,18 @@ namespace RvtElectrical
                 {
                     try
                     {
+                        //A TAG IS ONLY VISIBLE IF IT'S TAGGED ELEMENT IS VISIBLE IN A VIEW
+                        //FOR CONNECTORS, IF THEY ARE OUTSIDE OF A VIEW RANGE, THE TAG WILL NOT SHOW UP REGARDLESS OF THE FACT THAT
+                        //WE ARE USING THE DEVICE BOX AS THE XYZ GEOMETRY
+                        //CHOICES:  ENSURE ALL CONNECTORS ARE ON THE FACE OF THE DEVICE BOX, OR ADJUST THE VIEW DEPTH IN THE MODEL
+                        
                         trans.Start();
 
                         //Desired tag info
                         var familyTagName = "Power Tag Multicategory";
                         var familyTagNameSymb = "Power_IG";
                         var bicTagBeing = BuiltInCategory.OST_MultiCategoryTags;
+                        bool hasLeader = true;
                         
                         //Define tag mode and orientation
                         TagMode tagMode = TagMode.TM_ADDBY_MULTICATEGORY;
@@ -99,7 +105,7 @@ namespace RvtElectrical
                         XYZ boxLocation = elemLocation.Point;
                         Reference elemRef = new Reference(powerConnectorElement);
 
-                        IndependentTag newTag = IndependentTag.Create(doc, view.Id, elemRef, true, tagMode, tagorn, boxLocation);
+                        IndependentTag newTag = IndependentTag.Create(doc, view.Id, elemRef, hasLeader, tagMode, tagorn, boxLocation);
 
                         Element desiredTagType = FamilyLocateUtils.FindFamilyType(doc, typeof(FamilySymbol), familyTagName, familyTagNameSymb, bicTagBeing);
 
