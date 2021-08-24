@@ -47,7 +47,7 @@ namespace RvtElectrical
                 Element powerConnectorElement = powerConnectors.First().Connector;
 
                 var powerConnectorElements = powerConnectors
-                    .GroupBy(p => p.ConnectorCircuitConcat)
+                    .GroupBy(n => n.Connector.Name)
                     .Select(g => g.First())
                     .ToList();
 
