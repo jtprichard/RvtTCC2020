@@ -104,6 +104,7 @@ namespace RvtElectrical
             //Create Ribbon Panels
             CreateRPDeviceSchedule(application, path, tabName);
             CreateRPDeviceBoxes(application, path, tabName);
+            CreateRPDeviceBoxTags(application, path, tabName);
             CreateRPPanelBoard(application, path, tabName);
             CreateRPConduit(application, path, tabName);
             CreateRPFaceplates(application, path, tabName);
@@ -140,6 +141,8 @@ namespace RvtElectrical
             _toggleCircuitLabelButton = panel.AddItem(toggleButtonData) as PushButton;
         }
         #endregion
+
+
 
         #region RIBBON PANEL - DEVICE BOX NUMBERING
         private void CreateRPDeviceBoxes(UIControlledApplication application, string path, string tabName)
@@ -192,6 +195,52 @@ namespace RvtElectrical
             tb1.Width = 120;
             tb1.ShowImageAsButton = true;
             tb1.EnterPressed += CallbackBoxNumberTextBox;
+
+        }
+        #endregion
+        
+        #region RIBBON PANEL - DEVICE BOX TAGS
+        private void CreateRPDeviceBoxTags(UIControlledApplication application, string path, string tabName)
+        {
+            RibbonPanel panel = application.CreateRibbonPanel(tabName, "Device Tags");
+
+
+            //DEVICE TAG
+            PushButtonData buttonDeviceTagData = new PushButtonData("Tag_Device", "Tag Device",
+                path, "RvtElectrical.CmdTests");
+            buttonDeviceTagData.AvailabilityClassName = "RvtElectrical.AvailabilityProj";
+            buttonDeviceTagData.Image = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+                "blank_button_16x16.png")));
+            buttonDeviceTagData.ToolTip = "Tag a Specialty Device Box";
+            buttonDeviceTagData.LongDescription = "RThis will tag a specialty device box.  If the device box is SVC and has integrated power, it will tag with the appropriate power notation";
+
+            //DEVICE POWER TAG
+            PushButtonData buttonDevicePowerTagData = new PushButtonData("Device_Power_Tag", "Tag Power",
+                path, "RvtElectrical.CmdTagDeviceBoxPower");
+            buttonDevicePowerTagData.Image = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+                "blank_button_16x16.png")));
+            buttonDevicePowerTagData.ToolTip = "Tags power for a device box";
+            buttonDevicePowerTagData.LongDescription = "The command will also update a general power device box with a [GP] notation.";
+            buttonDevicePowerTagData.AvailabilityClassName = "RvtElectrical.AvailabilityProj";
+
+            ////BOX NUMBER TEXTBOX
+            //TextBoxData boxNumberText = new TextBoxData("Box_Number_Text");
+            //BitmapImage boxNumberTextImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+            //    "checkmark_16x16.png")));
+            //boxNumberText.ToolTip = "Enter Starting Box Number";
+            //boxNumberText.LongDescription = "Box number will auto-advance to next available number after either automatic" +
+            //    "insertion or automatic replacement.  One or both of those functions must be active";
+            //boxNumberText.Image = boxNumberTextImage;
+
+            //CREATE STACKED PANEL
+            IList<RibbonItem> stackedItems = panel.AddStackedItems(buttonDeviceTagData, buttonDevicePowerTagData);
+            _ = stackedItems[0] as RibbonButton;
+            _ = stackedItems[1] as RibbonButton;
+            //TextBox tb1 = stackedItems[2] as TextBox;
+            //tb1.PromptText = "Box Number";
+            //tb1.Width = 120;
+            //tb1.ShowImageAsButton = true;
+            //tb1.EnterPressed += CallbackBoxNumberTextBox;
 
         }
         #endregion

@@ -47,5 +47,100 @@ namespace RvtElectrical
 
         }
 
+        public static DeviceTag DevicePowerTag()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Power Tag Multicategory",
+                TagFamilyType = "Power",
+                HasLeader = true,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
+
+        public static DeviceTag DeviceIGPowerTag()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Power Tag Multicategory",
+                TagFamilyType = "Power_IG",
+                HasLeader = true,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
+
+        public static DeviceTag GeneralPowerTag()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Power Tag Multicategory",
+                TagFamilyType = "Power_NoBox",
+                HasLeader = false,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
+
+        public static DeviceTag SpecialtyDeviceTagNormal()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Device Tag",
+                TagFamilyType = "Normal",
+                HasLeader = false,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
+
+        public static DeviceTag SpecialtyDeviceTagPower()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Device Tag",
+                TagFamilyType = "Power",
+                HasLeader = false,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
+
+        public static DeviceTag SpecialtyDeviceTagPowerIG()
+        {
+            var deviceTag = new DeviceTag()
+            {
+                TagFamily = "Device Tag",
+                TagFamilyType = "Power_IG",
+                HasLeader = false,
+                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
+                TagOrient = TagOrientation.Horizontal,
+                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+
+            };
+
+            return deviceTag;
+        }
     }
 }

@@ -9,3 +9,14 @@ D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.CoreCompileInputs
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.dll
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.pdb
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.AssemblyReference.cache
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.dll
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.pdb
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csprojAssemblyReference.cache
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\PlateNumDialog.g.cs
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs_MarkupCompile.cache
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs_MarkupCompile.lref
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\PlateNumDialog.baml
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.g.resources
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.CoreCompileInputs.cache
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.dll
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.pdb

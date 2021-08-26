@@ -65,26 +65,31 @@ namespace RvtElectrical
                         try
                         {
 
-                            var deviceTag = new DeviceTag()
+                            var deviceTag = new DeviceTag();
+
+                            //Test for General vs. Specialty plate
+                            if (db.System == DeviceSystem.General)
                             {
-                                TagFamily = "Power Tag Multicategory",
-                                TagFamilyType = "Power",
-                                HasLeader = true,
-                                TagCategory = BuiltInCategory.OST_MultiCategoryTags,
-                                TagOrient = TagOrientation.Horizontal,
-                                Mode = TagMode.TM_ADDBY_MULTICATEGORY,
+                                deviceTag = DeviceTag.GeneralPowerTag();
 
-                            };
+                                //Change Connector_Concat to "GP"
+                                Parameter circuitParam = connectorElement.Connector.get_Parameter(TCCElecSettings.ConnectorCircuitConcatGuid);
+                                circuitParam.Set("GP");
+                            }
 
-                            if (connectorElement.IsIG)
-                                deviceTag.TagFamilyType = "Power_IG";
+                            else
+                            {
+                                if (connectorElement.IsIG)
+                                    deviceTag = DeviceTag.DeviceIGPowerTag();
+                                else
+                                    deviceTag = DeviceTag.DevicePowerTag();
+                            }
                             
                             LocationPoint elemLocation =  elem.Location as LocationPoint;
                             deviceTag.Location = elemLocation.Point;
                             deviceTag.TagReference = new Reference(connectorElement.Connector);
 
                             deviceTag.TagDeviceBox(doc, view);
-
 
                         }
 

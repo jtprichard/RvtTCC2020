@@ -48,3 +48,6 @@ C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\obj\Debug\RvtElectrical.pdb
 D:\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.dll
 D:\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.pdb
 D:\Repos\TCC\RvtTCC2020\RvtElectrical\obj\Debug\RvtElectrical.csproj.CopyComplete
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.dll
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.pdb
+C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\obj\Debug\RvtElectrical.csproj.CopyComplete
