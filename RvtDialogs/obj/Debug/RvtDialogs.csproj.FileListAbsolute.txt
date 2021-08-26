@@ -8,7 +8,6 @@ D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.g.resources
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.CoreCompileInputs.cache
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.dll
 D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.pdb
-D:\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csproj.AssemblyReference.cache
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.dll
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\bin\Debug\RvtDialogs.pdb
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtDialogs\obj\Debug\RvtDialogs.csprojAssemblyReference.cache

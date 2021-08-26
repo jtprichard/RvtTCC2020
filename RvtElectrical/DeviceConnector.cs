@@ -255,5 +255,17 @@ namespace RvtElectrical
 
             return connectors;
         }
+
+        static public List<DeviceConnector> GetConnectorsByBox(DeviceBox box)
+            //Return any connectors in a list of DeviceBoxes
+        {
+            List<DeviceConnector> connectors = new List<DeviceConnector>();
+            foreach (DeviceConnector connector in box.Connectors)
+            {
+                connectors.Add(connector);
+            }
+
+            return connectors;
+        }
     }
 }

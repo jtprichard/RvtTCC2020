@@ -21,6 +21,16 @@ namespace RvtElectrical
         public string PlateCode { get; private set; }                       //Plate Code
         public string Mount { get; private set; }                           //Mounting Condition
 
+        public bool HasPower
+        {
+            get { return BoxHasPower();}
+        }
+
+        public bool HasIG
+        {
+            get { return BoxIsIG(); }
+        }
+
         //public DeviceBox(Document doc, IList<Element> elements)
         ////OLD CONSTRUCTOR - NO LONGER USED
         //{
@@ -463,6 +473,40 @@ namespace RvtElectrical
             return nextBox;
         }
 
+        private bool BoxHasPower()
+        {
+            bool hasPower = false;
+            var connectors = DeviceConnector.GetConnectorsByBox(this);
+            foreach(var connector in connectors)
+            {
+                if (!(connector.DeviceId.Voltage == Voltage.LowVoltage) &&
+                    !(connector.DeviceId.Voltage == Voltage.MixedVoltage))
+                {
+                    hasPower = true;
+                }
+            }
+
+            return hasPower;
+
+        }
+
+        private bool BoxIsIG()
+        {
+            bool isIG = false;
+            var connectors = DeviceConnector.GetConnectorsByBox(this);
+            foreach (var connector in connectors)
+            {
+                if (!(connector.DeviceId.Voltage == Voltage.LowVoltage) &&
+                    !(connector.DeviceId.Voltage == Voltage.MixedVoltage) &&
+                    connector.IsIG)
+                {
+                    isIG = true;
+                }
+
+            }
+
+            return isIG;
+        }
     }
 
 }

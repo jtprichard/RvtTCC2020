@@ -60,6 +60,7 @@
     <Compile Include="CmdRenumberBoxes.cs" />
     <Compile Include="CmdBlank.cs" />
     <Compile Include="CmdCreateFaceplateSchedules.cs" />
+    <Compile Include="CmdTagDeviceBox.cs" />
     <Compile Include="CmdTagDeviceBoxPower.cs" />
     <Compile Include="CmdTests.cs" />
     <Compile Include="CmdCreateConduitLow.cs" />

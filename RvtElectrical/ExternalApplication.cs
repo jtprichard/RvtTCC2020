@@ -142,8 +142,6 @@ namespace RvtElectrical
         }
         #endregion
 
-
-
         #region RIBBON PANEL - DEVICE BOX NUMBERING
         private void CreateRPDeviceBoxes(UIControlledApplication application, string path, string tabName)
         {
@@ -207,7 +205,7 @@ namespace RvtElectrical
 
             //DEVICE TAG
             PushButtonData buttonDeviceTagData = new PushButtonData("Tag_Device", "Tag Device",
-                path, "RvtElectrical.CmdTests");
+                path, "RvtElectrical.CmdTagDeviceBox");
             buttonDeviceTagData.AvailabilityClassName = "RvtElectrical.AvailabilityProj";
             buttonDeviceTagData.Image = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
                 "blank_button_16x16.png")));
@@ -223,24 +221,25 @@ namespace RvtElectrical
             buttonDevicePowerTagData.LongDescription = "The command will also update a general power device box with a [GP] notation.";
             buttonDevicePowerTagData.AvailabilityClassName = "RvtElectrical.AvailabilityProj";
 
-            ////BOX NUMBER TEXTBOX
-            //TextBoxData boxNumberText = new TextBoxData("Box_Number_Text");
-            //BitmapImage boxNumberTextImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
-            //    "checkmark_16x16.png")));
-            //boxNumberText.ToolTip = "Enter Starting Box Number";
-            //boxNumberText.LongDescription = "Box number will auto-advance to next available number after either automatic" +
-            //    "insertion or automatic replacement.  One or both of those functions must be active";
-            //boxNumberText.Image = boxNumberTextImage;
+            //CIRCUIT DEFAULT TEXTBOX
+            TextBoxData circuitDefaultText = new TextBoxData("Circuit_Default_Text");
+            BitmapImage circuitDefaultTextImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+                "checkmark_16x16.png")));
+            circuitDefaultText.ToolTip = "Defaul Circuit Information";
+            circuitDefaultText.LongDescription = "The value will automatically be inserted into a general purpose device plate" +
+                                                 "TCC_CIRCUIT_CONCAT field for display in the tag if no other value exists.";
+            circuitDefaultText.Image = circuitDefaultTextImage;
 
             //CREATE STACKED PANEL
-            IList<RibbonItem> stackedItems = panel.AddStackedItems(buttonDeviceTagData, buttonDevicePowerTagData);
+            IList<RibbonItem> stackedItems = panel.AddStackedItems(buttonDeviceTagData, buttonDevicePowerTagData, circuitDefaultText);
             _ = stackedItems[0] as RibbonButton;
             _ = stackedItems[1] as RibbonButton;
-            //TextBox tb1 = stackedItems[2] as TextBox;
-            //tb1.PromptText = "Box Number";
-            //tb1.Width = 120;
-            //tb1.ShowImageAsButton = true;
-            //tb1.EnterPressed += CallbackBoxNumberTextBox;
+            TextBox tbCircuitDefault = stackedItems[2] as TextBox;
+            tbCircuitDefault.PromptText = "Default Circuit";
+            tbCircuitDefault.Value = "GP";
+            tbCircuitDefault.Width = 80;
+            tbCircuitDefault.ShowImageAsButton = true;
+            //tbCircuitDefault.EnterPressed += CallbackBoxNumberTextBox;
 
         }
         #endregion
@@ -456,7 +455,8 @@ namespace RvtElectrical
             PushButtonData buttonCreatePlateSchedules = new PushButtonData("Copy_Plate_Schedule", "Create\nPlate Schedules",
                 path, "RvtElectrical.CmdCreateFaceplateSchedules");
             buttonCreatePlateSchedules.ToolTip = "Creates Faceplate Schedules from schedule template and faceplates in model";
-
+            buttonCreatePlateSchedules.LargeImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+                "blank_button.png")));
             _ = panel.AddItem(buttonCreatePlateSchedules);
         }
         #endregion
