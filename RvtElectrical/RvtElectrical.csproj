@@ -62,6 +62,7 @@
     <Compile Include="CmdCreateFaceplateSchedules.cs" />
     <Compile Include="CmdTagDeviceBox.cs" />
     <Compile Include="CmdTagDeviceBoxPower.cs" />
+    <Compile Include="CmdCreateRiserSymbols.cs" />
     <Compile Include="CmdTests.cs" />
     <Compile Include="CmdCreateConduitLow.cs" />
     <Compile Include="CmdCreateConduitMedium.cs" />

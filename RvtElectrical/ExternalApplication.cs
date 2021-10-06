@@ -108,7 +108,7 @@ namespace RvtElectrical
             CreateRPPanelBoard(application, path, tabName);
             CreateRPConduit(application, path, tabName);
             CreateRPFaceplates(application, path, tabName);
-            //CreateRPSignalRiser(application, path, tabName);
+            CreateRPSignalRiser(application, path, tabName);
             CreateRPFamilyEditor(application, path, tabName);
 
             //TEST BUTTON INITIATION
@@ -465,6 +465,16 @@ namespace RvtElectrical
         private void CreateRPSignalRiser(UIControlledApplication application, string path, string tabName)
         {
             RibbonPanel panel = application.CreateRibbonPanel(tabName, "Signal Riser");
+
+            //BUTTON TO CREATE AV RISER BOXES
+            PushButtonData buttonCreateRiserSymbols = new PushButtonData("Create_Riser_Symbols", "Create\nRiser Symbols",
+                path, "RvtElectrical.CmdCreateRiserSymbols");
+            buttonCreateRiserSymbols.ToolTip = "Creates SVC Riser Symbols for Export to AutoCAD";
+            buttonCreateRiserSymbols.LargeImage = new BitmapImage(new Uri(Path.Combine(_ButtonIconsFolder,
+                "blank_button.png")));
+            _ = panel.AddItem(buttonCreateRiserSymbols);
+
+
         }
         #endregion
 
