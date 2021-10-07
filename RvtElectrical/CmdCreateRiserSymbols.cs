@@ -28,58 +28,16 @@ namespace RvtElectrical
                 return Result.Failed;
             }
 
-            var riserAnnoFamilyName = "RiserBoxAnno";
+            var riserAnnoFamilyName = "Riser_SVC_Anno";
             var boxIdGuid = Guid.Parse("db446056-e38b-48a7-88ce-8f2e3279a214");
             var plateCodeGuid = Guid.Parse("d6e3c843-f345-423a-ae7c-eb745db1540c");
-
-
-            ////Define a reference Object to accept the pick result
-            //Reference pickedObj = null;
-
-            ////Pick an object
-            //Selection sel = uiapp.ActiveUIDocument.Selection;
-
-            //pickedObj = sel.PickObject(ObjectType.Element, "Select an element");
-            //Element elem = doc.GetElement(pickedObj);
+            var connectorLabelGuid = Guid.Parse("4c6aca32-a79b-4bc6-be43-3bc323fde032");
+            var connectorGroupCodeGuid = Guid.Parse("02e83556-85a3-4f36-b06f-989d0772adcf");
 
 
 
             try
             {
-
-
-                //DeviceBox db = new DeviceBox(doc, elem);
-
-
-
-                
-
-
-                //string dbBoxId = db.DeviceId.Value.ToString();
-                //string dbNumber = db.BoxId.ToString();
-                //string dbVenue = db.Venue.ToString();
-                //string dbNumConnectors = db.Connectors.Count().ToString();
-
-                //TaskDialog.Show("TEST MESSAGE", "DeviceBox ID: " + dbBoxId + Environment.NewLine +
-                //    "Box Number: " + dbNumber + Environment.NewLine +
-                //    "Venue: " + dbVenue + Environment.NewLine +
-                //    "Connector Qty: " + dbNumConnectors);
-
-                //IList<DeviceBox> deviceBoxes = DeviceBox.GetDeviceBoxes(doc);
-
-                //IList<DeviceBox> lightingDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfLighting);
-
-                //IList<DeviceBox> svcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfSVC);
-
-                //IList<DeviceBox> machDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfMachinery);
-
-                //IList<DeviceBox> cablePasses = DeviceBox.GetDeviceBoxes(doc, System.CablePasses);
-
-                //Locate a list of deviceboxes
-                //IList<DeviceBox> lightingDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, System.PerfLighting);
-
-                //Locate a schedule to duplicate
-
 
 
                 using (Transaction trans = new Transaction(doc, "Command Test"))
@@ -89,38 +47,104 @@ namespace RvtElectrical
                         
                         trans.Start();
 
-                        var SvcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC);
-
+                        //Get the annotation family
                         var fsym = new FilteredElementCollector(doc)
                             .OfClass(typeof(FamilySymbol))
                             .Cast<FamilySymbol>().ToList()
                             .Where(f => f.FamilyName == riserAnnoFamilyName)
                             .FirstOrDefault(y => y.Name == riserAnnoFamilyName);
 
-                        XYZ insertPoint = new XYZ(0.0, 0.0, 0.0);
-                        XYZ movePoint = new XYZ(0.0, 0.1, 0.0);
+                        //Get all available connectors
+                        var allSvcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC);
+                        var distinctDeviceConnectorIds = new List<int>();
 
-                        foreach (var deviceBox in SvcDeviceBoxes)
+                        foreach (var deviceBox in allSvcDeviceBoxes)
                         {
                             var connectors = DeviceConnector.GetConnectorsByBox(deviceBox);
                             foreach (var connector in connectors)
                             {
-                                var famInstance = doc.Create.NewFamilyInstance(insertPoint, fsym, view);
-                                var boxIdParam = famInstance.get_Parameter(boxIdGuid);
-                                var plateCodeParam = famInstance.get_Parameter(plateCodeGuid);
-
-                                boxIdParam.Set(deviceBox.BoxId);
-                                plateCodeParam.Set(connector.ConnectorGroupCode);
-
-                                insertPoint = insertPoint + movePoint;
+                                if (!distinctDeviceConnectorIds.Contains(connector.DeviceId.Value))
+                                {
+                                    distinctDeviceConnectorIds.Add(connector.DeviceId.Value);
+                                }
                             }
-                            
+                        }
+
+
+                        XYZ insertPoint = new XYZ(0.0, 0.0, 0.0);
+                        XYZ movePointDown = new XYZ(0.0, 0.05, 0.0);
+                        XYZ movePointOver = new XYZ(0.1, 0.0, 0.0);
+                        XYZ movePointOverLarge = new XYZ(0.0, 0.25, 0.0);
+                        int groupCount = 0;
+                        double movePointOverValue = .1;
+
+
+                        var levels = GetLevels(doc);
+                        foreach (Level level in levels)
+                        {
+
+                            var SvcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC, level).OrderBy(x => x.BoxId).ToList();
+                            if(SvcDeviceBoxes.Count == 0)
+                                continue;
+
+                            foreach (var deviceConnectorId in distinctDeviceConnectorIds)
+                            {
+
+                                insertPoint = new XYZ(0.0, 0.0, 0.0) +
+                                              new XYZ((groupCount * movePointOverValue), 0.0, 0.0);
+
+                                var connectorText =
+                                    GetConnectorCodeByConnectorId(doc, allSvcDeviceBoxes, deviceConnectorId);
+
+                                var textIds = new FilteredElementCollector(doc)
+                                    .OfCategory(BuiltInCategory.OST_TextNotes).ToElementIds();
+
+                                var textType = TextNote.GetValidTypes(doc, textIds);
+
+                                var selectedTextType = textType.FirstOrDefault();
+                                var note = TextNote.Create(doc, view.Id, insertPoint-(movePointOver/3), connectorText, selectedTextType);
+                                
+                                insertPoint = insertPoint - movePointDown;
+
+                                foreach (var deviceBox in SvcDeviceBoxes)
+                                {
+
+                                    var connectors = DeviceConnector.GetConnectorsByBox(deviceBox);
+                                    var filteredConnectors = connectors
+                                        .Where(x => x.DeviceId.Value == deviceConnectorId)
+                                        .GroupBy(g => g.DeviceId.Value)
+                                        .Select(s => s.First())
+                                        .ToList();
+
+                                    foreach (var connector in filteredConnectors)
+                                    {
+                                        var connectorCount = connectors
+                                            .Where(x => x.DeviceId.Value == connector.DeviceId.Value)
+                                            .Count();
+
+                                        var famInstance = doc.Create.NewFamilyInstance(insertPoint, fsym, view);
+                                        var boxIdParam = famInstance.get_Parameter(boxIdGuid);
+                                        var plateCodeParam = famInstance.get_Parameter(plateCodeGuid);
+                                        var connectorLabelParam = famInstance.get_Parameter(connectorLabelGuid);
+
+                                        boxIdParam.Set(deviceBox.BoxId);
+                                        plateCodeParam.Set(deviceBox.PlateCode);
+
+                                        var connectorLabel = connector.ConnectorGroupCode + connectorCount.ToString();
+                                        connectorLabelParam.Set(connectorLabel);
+
+                                        insertPoint = insertPoint - movePointDown;
+                                    }
+
+                                }
+
+                                groupCount += 1;
+                            }
+
+                            groupCount += 2;
 
 
                         }
-
-                       
-
 
                         trans.Commit();
                     }
@@ -134,7 +158,6 @@ namespace RvtElectrical
                 }
 
 
-
             }
             catch
             {
@@ -143,5 +166,35 @@ namespace RvtElectrical
 
             return Result.Succeeded;
         }
+
+        private IList<Level> GetLevels(Document doc)
+        {
+            var levels = new FilteredElementCollector(doc)
+                .OfClass(typeof(Level))
+                .Cast<Level>()
+                .ToList();
+
+            return levels;
+        }
+
+
+        private string GetConnectorCodeByConnectorId(Document doc, IList<DeviceBox> deviceBoxes, int Id)
+        {
+            IList<DeviceConnector> connectors = new List<DeviceConnector>();
+            foreach (var deviceBox in deviceBoxes)
+            {
+                var boxConnectors = DeviceConnector.GetConnectorsByBox(deviceBox);
+                foreach (var boxConnector in boxConnectors)
+                {
+                    connectors.Add(boxConnector);
+                }
+
+            }
+
+            var foundConnector = connectors.Where(x => x.DeviceId.Value == Id).FirstOrDefault();
+            return foundConnector.ConnectorGroupText;
+
+        }
+
     }
 }

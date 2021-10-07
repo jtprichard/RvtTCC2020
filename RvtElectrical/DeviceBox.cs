@@ -13,6 +13,7 @@ namespace RvtElectrical
     public class DeviceBox
     {
         public IList<Element> Box { get; private set; }                     //Stores element reference in DeviceBox
+        public Element BoxElement { get; private set; }                     //Stores the specific element reference of the DeviceBox
         public IList<DeviceConnector> Connectors { get; private set; }      //List of Connector Elements
         public int BoxId { get; private set; }                              //Box ID Integer
         public DeviceId DeviceId { get; private set; }                      //Device ID Value
@@ -82,6 +83,7 @@ namespace RvtElectrical
             // Get GUID Values for Shared Parameters
             Guid boxIdGuid = TCCElecSettings.BoxIdGuid;
             Guid venueIdGuid = TCCElecSettings.VenueGuid;
+            BoxElement = ele;
 
             this.Connectors = new List<DeviceConnector>();
 
@@ -287,7 +289,20 @@ namespace RvtElectrical
 
             return filteredDeviceBoxes;
         }
-        
+
+        public static IList<DeviceBox> GetDeviceBoxes(Document doc, DeviceSystem deviceScope, Level level)
+            //Get Device Boxes based on devices having a specific system scope and level
+        {
+            var deviceBoxes = GetDeviceBoxes(doc, deviceScope);
+
+            List<DeviceBox> filteredDeviceBoxes = deviceBoxes
+                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsValueString() == level.Name)
+                .ToList();
+
+            return filteredDeviceBoxes;
+
+        }
+
         private static IList<DeviceBox> ChangeDeviceBoxToConnectorScope(IList<DeviceBox> deviceBoxes, DeviceSystem deviceScope)
         {
             var updatedDeviceBoxes = new List<DeviceBox>();

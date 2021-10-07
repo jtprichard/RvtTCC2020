@@ -98,6 +98,7 @@ namespace RvtElectrical
             private set { }
         }
         public string ConnectorGroupCode { get; private set; }    
+        public string ConnectorGroupText { get; private set; }
         public bool IsIG { get; private set; }
 
         public ElectricalCircuitData CircuitData { get; private set; }
@@ -122,6 +123,11 @@ namespace RvtElectrical
                     ConnectorGroupCode = eType.get_Parameter(TCCElecSettings.ConnectorGroupCodeGuid).AsString();
                 else
                     ConnectorGroupCode = null;
+                if (eType.get_Parameter(TCCElecSettings.ConnectorGroupTextGuid) != null)
+                    ConnectorGroupText = eType.get_Parameter(TCCElecSettings.ConnectorGroupTextGuid).AsString();
+                else
+                    ConnectorGroupText = null;
+
 
                 //Get Is IG
                 if (eType.get_Parameter(TCCElecSettings.IsIGGuid) != null)

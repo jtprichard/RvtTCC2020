@@ -18,6 +18,7 @@ namespace RvtElectrical
         public static Guid ConnectorPositionGuid { get; private set; }                                 //GUID for Shared Parameter TCC_CONNECTOR_POSITION
         public static Guid ConnectorSubPositionGuid { get; private set; }                              //GUID FOR Shared Parameter TCC_CONNECTOR_SUB_POSITION
         public static Guid ConnectorLabelPrefixGuid { get; private set; }                              //GUID for Shared Parameter TCC_CONNECTOR_LABEL_PREFIX
+        public static Guid ConnectorGroupTextGuid { get; private set; }                                //GUID for Shared Parameter TCC_CONNECTOR_GROUP_TEXT
         public static int ConnectorLabelPrefixEID { get; private set; }                                //ElementID for Shared Paramter TCC_CONNECTOR_LABEL_PREFIX
         public static Guid ConnectorLabelOtherGuid { get; private set; }                               //GUID for Shared Parameter TCC_CONNECTOR_LABEL_OTHER
         public static int ConnectorLabelOtherEID { get; private set; }                                 //ElementID for Shared Parameter TCC_CONNECTOR_LABEL_OTHER
@@ -48,6 +49,7 @@ namespace RvtElectrical
             ConnectorPositionGuid = Guid.Parse("94823938-8ab4-43c9-ab93-3a2c023e24b4");         //Input GUID for TCC_CONNECTOR_POSITION here
             ConnectorSubPositionGuid = Guid.Parse("8d166dbb-06a1-4c30-8718-ce2827bcf113");      //Input GUID for TCC_CONNECTOR_SUB_POSITION here
             ConnectorLabelOtherGuid = Guid.Parse("3ae80c00-b583-4c9b-aee1-40c646091616");       //Input GUID for TCC_CONNECTOR_LABEL_OTHER here
+            ConnectorGroupTextGuid = Guid.Parse("9abbce59-e6f7-4567-80fc-53bbc48adccb");        //Input GUID for TCC_CONNECTOR_GROUP_TEXT here
             //ConnectorLabelOtherEID = 3847511;                                                   //Input Element ID for TCC_CONNECTOR_lABEL_OTHER here
             ConnectorLabelPrefixGuid = Guid.Parse("ca878977-7356-4c4a-9102-96dcda5155df");      //Input GUID for TCC_CONNECTOR_LABEL_PREFIX here
             //ConnectorLabelPrefixEID = 3847513;                                                  //Inputer Element ID for TCC_CONNECTOR_LABEL_PREFIX here
