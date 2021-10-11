@@ -34,7 +34,8 @@ namespace RvtElectrical
         public static Guid MountConditionGuid { get; private set; }                                    //GUID for Shared Parameter TCC_MOUNT
         public static Guid HasPowerGuid { get; private set; }                                           //GUID for Shared Parameter TCC_HAS_POWER
         public static Guid IsIGGuid { get; private set; }                                              //GUID for Shared Parameter TCC_IS_IG
-
+        public static Guid RiserSubQtyGuid { get; private set; }                                        //GUID for Shared Parameter TCC_RISER_CONNECTOR_QTY
+        public static Guid RiserConnectorCircuitGuid { get; private set; }                              //GUID for Shared Parameter TCC_RISER_CONNECTOR_CIRCUIT
         static TCCElecSettings()
         {
             //ADD ABILITY TO STORE THIS IN CONFIG FILE
@@ -65,6 +66,9 @@ namespace RvtElectrical
             MountConditionGuid = Guid.Parse("f333d375-0cd7-4fb1-8b4c-3343bb2df5d1");            //Input GUID for TCC_MOUNT
             HasPowerGuid = Guid.Parse("333173e5-6767-487a-81d5-a97d56ec5e30");                  //Input GUID for TCC_HAS_POWER
             IsIGGuid = Guid.Parse("e82fb01e-d439-48c5-81e1-2276b3c7bc60");                      //Input GUID for TCC_IS_IG
+            RiserSubQtyGuid = Guid.Parse("17eda4de-5fde-481c-b786-b71b27104214");               //Input GUID for TCC_RISER_CONNECTOR_QTY
+            RiserConnectorCircuitGuid = Guid.Parse("475dd0f8-6c33-443b-908b-3fed389ad437");     //Input GUID for TCC_RISER_CONNECTOR_CIRCUIT
         }
+
     }
 }

@@ -28,11 +28,12 @@ namespace RvtElectrical
                 return Result.Failed;
             }
 
-            var riserAnnoFamilyName = "Riser_SVC_Anno";
+            var riserAnnoFamilyName = "Riser_SVC_Anno_Rev";
             var boxIdGuid = Guid.Parse("db446056-e38b-48a7-88ce-8f2e3279a214");
             var plateCodeGuid = Guid.Parse("d6e3c843-f345-423a-ae7c-eb745db1540c");
             var connectorLabelGuid = Guid.Parse("4c6aca32-a79b-4bc6-be43-3bc323fde032");
             var connectorGroupCodeGuid = Guid.Parse("02e83556-85a3-4f36-b06f-989d0772adcf");
+            var riserCircuitGuid = TCCElecSettings.RiserConnectorCircuitGuid;
 
 
 
@@ -122,16 +123,34 @@ namespace RvtElectrical
                                             .Where(x => x.DeviceId.Value == connector.DeviceId.Value)
                                             .Count();
 
+                                        List<DeviceConnector> boxServiceConnectors = connectors
+                                            .Where(x => x.DeviceId.Value == connector.DeviceId.Value).ToList();
+
+                                        var boxCircuits = GetBoxCircuits(boxServiceConnectors);
+
                                         var famInstance = doc.Create.NewFamilyInstance(insertPoint, fsym, view);
                                         var boxIdParam = famInstance.get_Parameter(boxIdGuid);
                                         var plateCodeParam = famInstance.get_Parameter(plateCodeGuid);
                                         var connectorLabelParam = famInstance.get_Parameter(connectorLabelGuid);
-
+                                        var connectorQtyParam =
+                                            famInstance.get_Parameter(TCCElecSettings.RiserSubQtyGuid);
+                                        
                                         boxIdParam.Set(deviceBox.BoxId);
                                         plateCodeParam.Set(deviceBox.PlateCode);
 
                                         var connectorLabel = connector.ConnectorGroupCode + connectorCount.ToString();
                                         connectorLabelParam.Set(connectorLabel);
+                                        connectorQtyParam.Set(boxCircuits.Count);
+                                        doc.Regenerate();
+                                        
+
+                                        for (int i = 0; i < boxCircuits.Count; i++)
+                                        {
+                                            var subConnector = GetSubComponentInstance(famInstance, i, doc);
+                                            var subConnectorCircuitParam =
+                                                subConnector.get_Parameter(riserCircuitGuid);
+                                            subConnectorCircuitParam.Set(boxCircuits[i]);
+                                        }
 
                                         insertPoint = insertPoint - movePointDown;
                                     }
@@ -195,6 +214,40 @@ namespace RvtElectrical
             return foundConnector.ConnectorGroupText;
 
         }
+
+        private List<string> GetBoxCircuits(List<DeviceConnector> connectors)
+        {
+            var circuits = new List<string>();
+            foreach (var connector in connectors)
+            {
+                var prefix = connector.ConnectorLabelPrefix;
+                var circuit = connector.ConnectorCircuit;
+                var other = connector.ConnectorLabelOther;
+                string value = "";
+
+                if (other != "")
+                    value = other;
+                else
+                {
+                    value = prefix + " " + circuit;
+                }
+
+                circuits.Add(value);
+            }
+
+            return circuits;
+
+        }
+
+        private FamilyInstance GetSubComponentInstance(FamilyInstance fi, int id, Document doc)
+        {
+            var subComponentIds = fi.GetSubComponentIds();
+
+            var eid = subComponentIds.ElementAt(id);
+            return doc.GetElement(eid) as FamilyInstance;
+        }
+
+
 
     }
 }
