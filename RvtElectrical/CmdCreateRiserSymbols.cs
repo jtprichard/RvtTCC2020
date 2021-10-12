@@ -28,7 +28,7 @@ namespace RvtElectrical
                 return Result.Failed;
             }
 
-            var riserAnnoFamilyName = "Riser_SVC_Anno_RevB";
+            var riserAnnoFamilyName = "Riser_SVC_Anno";
             var boxIdGuid = Guid.Parse("db446056-e38b-48a7-88ce-8f2e3279a214");
             var plateCodeGuid = Guid.Parse("d6e3c843-f345-423a-ae7c-eb745db1540c");
             var connectorLabelGuid = Guid.Parse("4c6aca32-a79b-4bc6-be43-3bc323fde032");
@@ -156,14 +156,22 @@ namespace RvtElectrical
 
                                         for (int i = 0; i < boxCircuits.Count; i++)
                                         {
-                                            if (i > 5)
+                                            if (i > 11)
                                                 break;
                                             
-                                            string circuitParamName = "RiserCircuit" + (i + 1);
-                                            var circuitParamGuid = (Guid)riserElecSettings[circuitParamName];
+                                            string circuitRParamName = "RiserCircuitR" + (i + 1);
+                                            var circuitRParamGuid = (Guid)riserElecSettings[circuitRParamName];
 
-                                            var circuitParam = famInstance.get_Parameter(circuitParamGuid);
-                                            circuitParam.Set(boxCircuits[i]);
+                                            var circuitRParam = famInstance.get_Parameter(circuitRParamGuid);
+                                            circuitRParam.Set(boxCircuits[i]);
+
+                                            string circuitLParamName = "RiserCircuitL" + (i + 1);
+                                            var circuitLParamGuid = (Guid)riserElecSettings[circuitLParamName];
+
+                                            var circuitLParam = famInstance.get_Parameter(circuitLParamGuid);
+                                            circuitLParam.Set(boxCircuits[i]);
+
+
 
                                         }
 
