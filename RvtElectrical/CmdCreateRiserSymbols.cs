@@ -28,13 +28,14 @@ namespace RvtElectrical
                 return Result.Failed;
             }
 
-            var riserAnnoFamilyName = "Riser_SVC_Anno_Rev";
+            var riserAnnoFamilyName = "Riser_SVC_Anno_RevB";
             var boxIdGuid = Guid.Parse("db446056-e38b-48a7-88ce-8f2e3279a214");
             var plateCodeGuid = Guid.Parse("d6e3c843-f345-423a-ae7c-eb745db1540c");
             var connectorLabelGuid = Guid.Parse("4c6aca32-a79b-4bc6-be43-3bc323fde032");
             var connectorGroupCodeGuid = Guid.Parse("02e83556-85a3-4f36-b06f-989d0772adcf");
             var riserCircuitGuid = TCCElecSettings.RiserConnectorCircuitGuid;
 
+            var riserElecSettings = new TCCElecRiserSettings();
 
 
             try
@@ -71,13 +72,15 @@ namespace RvtElectrical
                             }
                         }
 
+                        
 
                         XYZ insertPoint = new XYZ(0.0, 0.0, 0.0);
-                        XYZ movePointDown = new XYZ(0.0, 0.05, 0.0);
-                        XYZ movePointOver = new XYZ(0.1, 0.0, 0.0);
+                        XYZ movePointDown = new XYZ(0.0, (.125/12), 0.0);
+                        XYZ movePointDownBase = new XYZ(0.0, (.75 / 12), 0.0);
+                        XYZ movePointOver = new XYZ(0.166, 0.0, 0.0);
                         XYZ movePointOverLarge = new XYZ(0.0, 0.25, 0.0);
                         int groupCount = 0;
-                        double movePointOverValue = .1;
+                        double movePointOverValue = .125;
 
 
                         var levels = GetLevels(doc);
@@ -105,7 +108,7 @@ namespace RvtElectrical
                                 var selectedTextType = textType.FirstOrDefault();
                                 var note = TextNote.Create(doc, view.Id, insertPoint-(movePointOver/3), connectorText, selectedTextType);
                                 
-                                insertPoint = insertPoint - movePointDown;
+                                insertPoint = insertPoint - movePointDownBase - movePointDown;
 
                                 foreach (var deviceBox in SvcDeviceBoxes)
                                 {
@@ -121,10 +124,15 @@ namespace RvtElectrical
                                     {
                                         var connectorCount = connectors
                                             .Where(x => x.DeviceId.Value == connector.DeviceId.Value)
+                                            .ToList()
+                                            .Where(y => y.ConnectorSubPosition == 0)
                                             .Count();
 
                                         List<DeviceConnector> boxServiceConnectors = connectors
-                                            .Where(x => x.DeviceId.Value == connector.DeviceId.Value).ToList();
+                                            .Where(x => x.DeviceId.Value == connector.DeviceId.Value)
+                                            .ToList()
+                                            .Where(y => y.ConnectorSubPosition == 0)
+                                            .ToList();
 
                                         var boxCircuits = GetBoxCircuits(boxServiceConnectors);
 
@@ -138,21 +146,32 @@ namespace RvtElectrical
                                         boxIdParam.Set(deviceBox.BoxId);
                                         plateCodeParam.Set(deviceBox.PlateCode);
 
-                                        var connectorLabel = connector.ConnectorGroupCode + connectorCount.ToString();
+                                        var connectorLabel = connector.ConnectorGroupCode + connectorCount;
                                         connectorLabelParam.Set(connectorLabel);
-                                        connectorQtyParam.Set(boxCircuits.Count);
+
+                                        int numCircuits = boxCircuits.Count;
+                                        connectorQtyParam.Set(numCircuits);
                                         doc.Regenerate();
-                                        
+
 
                                         for (int i = 0; i < boxCircuits.Count; i++)
                                         {
-                                            var subConnector = GetSubComponentInstance(famInstance, i, doc);
-                                            var subConnectorCircuitParam =
-                                                subConnector.get_Parameter(riserCircuitGuid);
-                                            subConnectorCircuitParam.Set(boxCircuits[i]);
+                                            if (i > 5)
+                                                break;
+                                            
+                                            string circuitParamName = "RiserCircuit" + (i + 1);
+                                            var circuitParamGuid = (Guid)riserElecSettings[circuitParamName];
+
+                                            var circuitParam = famInstance.get_Parameter(circuitParamGuid);
+                                            circuitParam.Set(boxCircuits[i]);
+
                                         }
 
-                                        insertPoint = insertPoint - movePointDown;
+                                        int moveDownValue = boxCircuits.Count;
+                                        if (boxCircuits.Count == 0)
+                                            moveDownValue = 1;
+
+                                        insertPoint = insertPoint - movePointDownBase - (movePointDown * moveDownValue);
                                     }
 
                                 }
@@ -225,11 +244,12 @@ namespace RvtElectrical
                 var other = connector.ConnectorLabelOther;
                 string value = "";
 
-                if (other != "")
+                if (other != "" && other!=null)
                     value = other;
                 else
                 {
-                    value = prefix + " " + circuit;
+                    if(circuit != 0)
+                        value = prefix + " " + circuit;
                 }
 
                 circuits.Add(value);
@@ -246,6 +266,7 @@ namespace RvtElectrical
             var eid = subComponentIds.ElementAt(id);
             return doc.GetElement(eid) as FamilyInstance;
         }
+
 
 
 

@@ -36,6 +36,17 @@ namespace RvtElectrical
         public static Guid IsIGGuid { get; private set; }                                              //GUID for Shared Parameter TCC_IS_IG
         public static Guid RiserSubQtyGuid { get; private set; }                                        //GUID for Shared Parameter TCC_RISER_CONNECTOR_QTY
         public static Guid RiserConnectorCircuitGuid { get; private set; }                              //GUID for Shared Parameter TCC_RISER_CONNECTOR_CIRCUIT
+
+
+        ////RISER LABELS
+        //public static Guid RiserRCircuit1 { get; private set; }
+        //public static Guid RiserRCircuit2 { get; private set; }
+        //public static Guid RiserRCircuit3 { get; private set; }
+        //public static Guid RiserRCircuit4 { get; private set; }
+        //public static Guid RiserRCircuit5 { get; private set; }
+        //public static Guid RiserRCircuit6 { get; private set; }
+
+
         static TCCElecSettings()
         {
             //ADD ABILITY TO STORE THIS IN CONFIG FILE
@@ -68,6 +79,21 @@ namespace RvtElectrical
             IsIGGuid = Guid.Parse("e82fb01e-d439-48c5-81e1-2276b3c7bc60");                      //Input GUID for TCC_IS_IG
             RiserSubQtyGuid = Guid.Parse("17eda4de-5fde-481c-b786-b71b27104214");               //Input GUID for TCC_RISER_CONNECTOR_QTY
             RiserConnectorCircuitGuid = Guid.Parse("475dd0f8-6c33-443b-908b-3fed389ad437");     //Input GUID for TCC_RISER_CONNECTOR_CIRCUIT
+
+            ////RISER CIRCUITS
+            //RiserRCircuit1 = Guid.Parse("2012b68f-64d2-406c-a589-ae8373c382e1");
+            //RiserRCircuit2 = Guid.Parse("fe2913dd-6054-42aa-bfa7-0841d7ad4391");
+            //RiserRCircuit3 = Guid.Parse("b034ac56-f71a-4a9d-b9db-7b53ee60efec");
+            //RiserRCircuit4 = Guid.Parse("e280deb4-7228-472c-baaa-a6b75a8d7214");
+            //RiserRCircuit5 = Guid.Parse("6d479dfb-df6e-4d87-a387-50d424cc8c8d");
+            //RiserRCircuit6 = Guid.Parse("fa04ae57-b895-4723-be02-c72a736dccd3");
+
+
+        }
+
+        public static object GetPropValue(this Object src, string propName)
+        {
+            return src.GetType().GetProperty(propName).GetValue(src, null);
         }
 
     }
