@@ -51,3 +51,6 @@ D:\Repos\TCC\RvtTCC2020\RvtElectrical\obj\Debug\RvtElectrical.csproj.CopyComplet
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.dll
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\RvtDialogs.pdb
 C:\Users\jpric\Repos\TCC\RvtTCC2020\RvtElectrical\obj\Debug\RvtElectrical.csproj.CopyComplete
+D:\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\PB.MVVMToolkit.dll
+D:\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\PB.MVVMToolkit.pdb
+D:\Repos\TCC\RvtTCC2020\RvtElectrical\bin\Debug\PB.MVVMToolkit.dll.config

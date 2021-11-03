@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtRigging", "RvtRigging\Rv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RvtDialogs", "RvtDialogs\RvtDialogs.csproj", "{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PB.MVVMToolkit", "..\..\PB\MVVMToolkit\MVVMToolkit\PB.MVVMToolkit.csproj", "{5982A92C-47BA-4EAD-BF1B-29555B08947C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{349FBF8E-980B-4300-AF6B-0B7FAD4642D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5982A92C-47BA-4EAD-BF1B-29555B08947C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5982A92C-47BA-4EAD-BF1B-29555B08947C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5982A92C-47BA-4EAD-BF1B-29555B08947C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5982A92C-47BA-4EAD-BF1B-29555B08947C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

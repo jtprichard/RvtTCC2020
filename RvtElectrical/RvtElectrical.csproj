@@ -194,6 +194,10 @@
     <Resource Include="Resources\autonumber_no_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\PB\MVVMToolkit\MVVMToolkit\PB.MVVMToolkit.csproj">
+      <Project>{5982a92c-47ba-4ead-bf1b-29555b08947c}</Project>
+      <Name>PB.MVVMToolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RvtDialogs\RvtDialogs.csproj">
       <Project>{349fbf8e-980b-4300-af6b-0b7fad4642d5}</Project>
       <Name>RvtDialogs</Name>

@@ -303,6 +303,19 @@ namespace RvtElectrical
 
         }
 
+        public static IList<DeviceBox> GetDeviceBoxes(Document doc, Level level)
+            //Get Device Boxes based on devices having a specific system scope and level
+        {
+            var deviceBoxes = GetDeviceBoxes(doc);
+
+            List<DeviceBox> filteredDeviceBoxes = deviceBoxes
+                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsValueString() == level.Name)
+                .ToList();
+
+            return filteredDeviceBoxes;
+
+        }
+
         private static IList<DeviceBox> ChangeDeviceBoxToConnectorScope(IList<DeviceBox> deviceBoxes, DeviceSystem deviceScope)
         {
             var updatedDeviceBoxes = new List<DeviceBox>();

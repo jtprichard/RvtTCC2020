@@ -8,6 +8,8 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using PB.MVVMToolkit.Dialogs;
+
 
 namespace RvtElectrical
 {
@@ -37,6 +39,13 @@ namespace RvtElectrical
 
             var riserElecSettings = new TCCElecRiserSettings();
 
+            string dialogResult;
+            var startDialog =
+                DialogInputOkCancel.Show("Enter Starting Box Number", "Start Box Number", out dialogResult);
+            int startBoxNumber = Convert.ToInt32(dialogResult);
+
+            var endDialog = DialogInputOkCancel.Show("Enter Ending Box Number", "End Box Number", out dialogResult);
+            int endBoxNumber = Convert.ToInt32(dialogResult);
 
             try
             {
@@ -57,10 +66,11 @@ namespace RvtElectrical
                             .FirstOrDefault(y => y.Name == riserAnnoFamilyName);
 
                         //Get all available connectors
-                        var allSvcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC);
+                        var allDeviceBoxes = DeviceBox.GetDeviceBoxes(doc)
+                            .Where((x => x.BoxId >= startBoxNumber && x.BoxId <= endBoxNumber)).ToList();
                         var distinctDeviceConnectorIds = new List<int>();
 
-                        foreach (var deviceBox in allSvcDeviceBoxes)
+                        foreach (var deviceBox in allDeviceBoxes)
                         {
                             var connectors = DeviceConnector.GetConnectorsByBox(deviceBox);
                             foreach (var connector in connectors)
@@ -87,8 +97,11 @@ namespace RvtElectrical
                         foreach (Level level in levels)
                         {
 
-                            var SvcDeviceBoxes = DeviceBox.GetDeviceBoxes(doc, DeviceSystem.PerfSVC, level).OrderBy(x => x.BoxId).ToList();
-                            if(SvcDeviceBoxes.Count == 0)
+                            var deviceBoxes = DeviceBox.GetDeviceBoxes(doc, level)
+                                .Where((x => x.BoxId >= startBoxNumber && x.BoxId <= endBoxNumber))
+                                .OrderBy(x => x.BoxId)
+                                .ToList();
+                            if(deviceBoxes.Count == 0)
                                 continue;
 
                             foreach (var deviceConnectorId in distinctDeviceConnectorIds)
@@ -98,7 +111,7 @@ namespace RvtElectrical
                                               new XYZ((groupCount * movePointOverValue), 0.0, 0.0);
 
                                 var connectorText =
-                                    GetConnectorCodeByConnectorId(doc, allSvcDeviceBoxes, deviceConnectorId);
+                                    GetConnectorCodeByConnectorId(doc, allDeviceBoxes, deviceConnectorId);
 
                                 var textIds = new FilteredElementCollector(doc)
                                     .OfCategory(BuiltInCategory.OST_TextNotes).ToElementIds();
@@ -110,7 +123,7 @@ namespace RvtElectrical
                                 
                                 insertPoint = insertPoint - movePointDownBase - movePointDown;
 
-                                foreach (var deviceBox in SvcDeviceBoxes)
+                                foreach (var deviceBox in deviceBoxes)
                                 {
 
                                     var connectors = DeviceConnector.GetConnectorsByBox(deviceBox);
