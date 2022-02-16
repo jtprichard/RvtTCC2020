@@ -291,12 +291,14 @@ namespace RvtElectrical
         }
 
         public static IList<DeviceBox> GetDeviceBoxes(Document doc, DeviceSystem deviceScope, Level level)
-            //Get Device Boxes based on devices having a specific system scope and level
+        //Get Device Boxes based on devices having a specific system scope and level
+        //Updated 2/16/22 to search for elementId of level rather than name, since name comparison didn't always work
+
         {
             var deviceBoxes = GetDeviceBoxes(doc, deviceScope);
 
             List<DeviceBox> filteredDeviceBoxes = deviceBoxes
-                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsValueString() == level.Name)
+                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsElementId() == level.Id)
                 .ToList();
 
             return filteredDeviceBoxes;
@@ -305,11 +307,12 @@ namespace RvtElectrical
 
         public static IList<DeviceBox> GetDeviceBoxes(Document doc, Level level)
             //Get Device Boxes based on devices having a specific system scope and level
+            //Updated 2/16/22 to search for elementId of level rather than name, since name comparison didn't always work
         {
             var deviceBoxes = GetDeviceBoxes(doc);
 
             List<DeviceBox> filteredDeviceBoxes = deviceBoxes
-                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsValueString() == level.Name)
+                .Where(db => db.BoxElement.get_Parameter(BuiltInParameter.INSTANCE_SCHEDULE_ONLY_LEVEL_PARAM).AsElementId() == level.Id)
                 .ToList();
 
             return filteredDeviceBoxes;
